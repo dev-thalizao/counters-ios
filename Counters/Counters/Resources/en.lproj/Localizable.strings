@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  Counters
+*/
+
+// MARK: - App Name
+"APP_NAME" = "Counters";
+
+// MARK: - Welcome
+"WELCOME_TITLE" = "Welcome to Counters";
+"WELCOME_DESCRIPTION" = "An example app that syncs to a Node.js server running on your Mac.";
+
+"WELCOME_ADD_FEATURE_TITLE" = "Add almost anything";
+"WELCOME_ADD_FEATURE_DESCRIPTION" = "Capture cups of lattes, frapuccinos, or anything else that can be counted.";
+
+"WELCOME_COUNT_SHARE_FEATURE_TITLE" = "Count to self, or with anyone";
+"WELCOME_COUNT_SHARE_FEATURE_DESCRIPTION" = "Others can view or make changes. There’s no authentication API.";
+
+"WELCOME_COUNT_FEATURE_TITLE" = "Count your thoughts";
+"WELCOME_COUNT_FEATURE_DESCRIPTION" = "Possibilities are literally endless.";
+
+"WELCOME_PRIMARY_ACTION_TITLE" = "Continue";
