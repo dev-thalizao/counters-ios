@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CounterCore">
+   </FileRef>
+   <FileRef
       location = "group:Counters/Counters.xcodeproj">
    </FileRef>
 </Workspace>
