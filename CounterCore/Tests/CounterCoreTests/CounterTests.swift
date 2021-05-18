@@ -14,8 +14,4 @@ final class CounterTests: XCTestCase {
         counter.remove()
         XCTAssertEqual(counter.count, 9)
     }
-
-    static var allTests = [
-        ("testAddCounter", testAddCounter),
-    ]
 }
