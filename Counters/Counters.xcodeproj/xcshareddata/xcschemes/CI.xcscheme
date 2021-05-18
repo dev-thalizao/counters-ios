@@ -50,6 +50,17 @@
                ReferencedContainer = "container:../CounterCore">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "URLSessionHTTPClientTests"
+               BuildableName = "URLSessionHTTPClientTests"
+               BlueprintName = "URLSessionHTTPClientTests"
+               ReferencedContainer = "container:../CounterCore">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
