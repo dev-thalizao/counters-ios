@@ -25,7 +25,7 @@ let package = Package(
         ),
         .testTarget(
             name: "CounterAPITests",
-            dependencies: ["CounterAPI"]
+            dependencies: ["CounterAPI", "CounterTests"]
         ),
         .target(
             name: "CounterStore",
@@ -33,7 +33,7 @@ let package = Package(
         ),
         .testTarget(
             name: "CounterStoreTests",
-            dependencies: ["CounterStore"]
+            dependencies: ["CounterStore", "CounterTests"]
         ),
         .target(name: "CounterTests"),
         .target(name: "HTTPClient"),

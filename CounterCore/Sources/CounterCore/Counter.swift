@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Counter: Identifiable {
+public struct Counter: Identifiable, Hashable {
     
     public let id: String
     public let title: String

@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol CounterLoader {
-    typealias Result = Swift.Result<[Counter], NSError>
+    typealias Result = Swift.Result<[Counter], Error>
     
     func load(completion: @escaping (Result) -> Void)
 }
