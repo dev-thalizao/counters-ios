@@ -7,8 +7,19 @@
 
 import Foundation
 
+public struct CreateCounterRequest {
+
+    public let id: Counter.ID
+    public let title: String
+    
+    public init(id: Counter.ID, title: String) {
+        self.id = id
+        self.title = title
+    }
+}
+
 public protocol CounterCreator {
     typealias Result = Swift.Result<Counter, Error>
     
-    func create(_ name: String, completion: @escaping (Result) -> Void)
+    func create(_ request: CreateCounterRequest, completion: @escaping (Result) -> Void)
 }
