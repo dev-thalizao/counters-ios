@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "Counters",
+    platforms: [
+        .iOS(.v13),
+    ],
     products: [
         .library(name: "CounterCore", targets: ["CounterCore"]),
         .library(name: "CounterAPI", targets: ["CounterAPI"]),
