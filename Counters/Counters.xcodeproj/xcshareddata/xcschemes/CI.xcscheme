@@ -61,6 +61,28 @@
                ReferencedContainer = "container:../CounterCore">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CounterAPITests"
+               BuildableName = "CounterAPITests"
+               BlueprintName = "CounterAPITests"
+               ReferencedContainer = "container:../CounterCore">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CounterStoreTests"
+               BuildableName = "CounterStoreTests"
+               BlueprintName = "CounterStoreTests"
+               ReferencedContainer = "container:../CounterCore">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
