@@ -23,7 +23,19 @@ public struct Counter: Identifiable, Hashable {
         self.count += 1
     }
     
+    public func adding() -> Counter {
+        var mutable = self
+        mutable.add()
+        return mutable
+    }
+    
     public mutating func remove() {
         self.count -= 1
+    }
+    
+    public func removing() -> Counter {
+        var mutable = self
+        mutable.remove()
+        return mutable
     }
 }

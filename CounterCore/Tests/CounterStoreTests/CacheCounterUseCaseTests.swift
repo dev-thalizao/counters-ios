@@ -26,7 +26,7 @@ final class CacheCounterUseCaseTests: XCTestCase {
         }
     }
     
-    func testSaveSucceedsOnSuccessfulCacheInsertion() {
+    func testSaveSucceedsOnSuccessfulInsertion() {
         let (sut, store) = makeSUT()
         
         expect(sut, toCompleteWithError: nil) {
