@@ -17,15 +17,39 @@ final class IncrementCounterFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.messages, [])
     }
     
-    func testIncrementFailsOnRetrievalError() {
+    func testIncrementFailsOnCounterError() {
         let (sut, store) = makeSUT()
-        let retrievalError = anyNSError()
+        let counterError = anyNSError()
         
-        expect(sut, toCompleteWith: .failure(retrievalError)) {
-            store.completionRetrieval(with: retrievalError)
+        expect(sut, toCompleteWith: .failure(counterError)) {
+            store.completeCounter(with: counterError)
         }
         
-        XCTAssertEqual(store.messages, [.retrieve])
+        XCTAssertEqual(store.messages, [.counter])
+    }
+    
+    func testIncrementFailsOnInsertionError() {
+        let (sut, store) = makeSUT()
+        let insertionError = anyNSError()
+        
+        expect(sut, toCompleteWith: .failure(insertionError)) {
+            store.completeCounter(with: .any())
+            store.completeInsertion(with: insertionError)
+        }
+        
+        XCTAssertEqual(store.messages, [.counter, .insert])
+    }
+    
+    func testIncrementSucceedsOnSuccessfulInsertion() {
+        let (sut, store) = makeSUT()
+        let counter = Counter.any()
+        
+        expect(sut, toCompleteWith: .success(counter.adding())) {
+            store.completeCounter(with: counter)
+            store.completeInsertionSuccessfully()
+        }
+        
+        XCTAssertEqual(store.messages, [.counter, .insert])
     }
     
     // MARK: - Helpers

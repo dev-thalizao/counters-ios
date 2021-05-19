@@ -9,6 +9,7 @@ import Foundation
 import CounterCore
 
 public protocol CounterStore {
-    func retrieve() throws -> [Counter]?
+    func retrieve() throws -> [Counter]
     func insert(_ counters: [Counter]) throws
+    func counter(with id: Counter.ID) throws -> Counter
 }

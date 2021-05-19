@@ -21,7 +21,7 @@ extension LocalCounterLoader: CounterLoader {
     
     public func load(completion: @escaping (CounterLoader.Result) -> Void) {
         completion(Result {
-            try store.retrieve() ?? []
+            try store.retrieve()
         })
     }
 }

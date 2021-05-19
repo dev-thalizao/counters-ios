@@ -17,6 +17,12 @@ public final class LocalCounterIncrementer: CounterIncrementer {
     }
     
     public func increment(_ id: Counter.ID, completion: @escaping (CounterIncrementer.Result) -> Void) {
-        fatalError("Not implemented")
+        completion(Result {
+            var counter = try store.counter(with: id)
+            counter.add()
+            
+            try store.insert([counter])
+            return counter
+        })
     }
 }
