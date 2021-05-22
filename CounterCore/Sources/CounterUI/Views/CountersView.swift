@@ -44,14 +44,8 @@ final class CountersView: UIView {
         tableView.separatorStyle = Layout.TableView.separatorStyle
         tableView.contentInset = Layout.TableView.contentInset
         tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.refreshControl = UIRefreshControl()
         return tableView
-    }()
-    
-    private(set) lazy var toolbar: UIToolbar = {
-        let toolbar = UIToolbar()
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.setItems(toolbarDefaultItems(), animated: false)
-        return toolbar
     }()
     
     private(set) lazy var trashButton: UIBarButtonItem = {
@@ -96,13 +90,11 @@ final class CountersView: UIView {
     
     @objc private func didTapOnEditButton(_ sender: UIBarButtonItem) {
         delegate?.countersViewDidBeginEditing(self)
-        toolbar.setItems(toolbarEditItems(), animated: true)
         tableView.setEditing(true, animated: true)
     }
     
     @objc private func didTapOnDoneButton(_ sender: UIBarButtonItem) {
         delegate?.countersViewDidEndEditing(self)
-        toolbar.setItems(toolbarDefaultItems(), animated: true)
         tableView.setEditing(false, animated: true)
     }
     
@@ -126,11 +118,11 @@ final class CountersView: UIView {
     
     // MARK: - Helpers
     
-    private func toolbarDefaultItems() -> [UIBarButtonItem] {
+    func toolbarDefaultItems() -> [UIBarButtonItem] {
         return [fixedSpace(), flexibleSpace(), summaryButton, flexibleSpace(), addButton]
     }
     
-    private func toolbarEditItems() -> [UIBarButtonItem] {
+    func toolbarEditItems() -> [UIBarButtonItem] {
         return [trashButton, flexibleSpace(), actionButton]
     }
     
@@ -149,19 +141,20 @@ extension CountersView: ViewConfiguration {
     
     func setupHierarchy() {
         addSubview(tableView)
-        addSubview(toolbar)
     }
     
     func setupConstraints() {
+        let guide = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            toolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            toolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            toolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
+            tableView.topAnchor.constraint(equalTo: guide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
         ])
+    }
+    
+    func setupViews() {
+        backgroundColor = .systemBackground
     }
 }
 

@@ -13,9 +13,11 @@ public struct CounterViewModel: Hashable {
     public let title: String
 }
 
-final class CounterPresenter {
+public final class CounterPresenter {
     
-    static func map(_ counter: Counter) -> CounterViewModel {
+    private init() {}
+    
+    public static func map(_ counter: Counter) -> CounterViewModel {
         return CounterViewModel(
             count: counter.count.description,
             title: counter.title

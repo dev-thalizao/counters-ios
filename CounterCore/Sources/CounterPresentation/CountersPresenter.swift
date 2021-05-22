@@ -19,11 +19,13 @@ extension CountersViewModel {
     }
 }
 
-final class CountersPresenter {
+public final class CountersPresenter {
     
-    static let title = "Counters"
+    private init() {}
     
-    static func map(_ counters: [Counter]) -> CountersViewModel {
+    public static let title = "Counters"
+    
+    public static func map(_ counters: [Counter]) -> CountersViewModel {
         guard !counters.isEmpty else { return .empty }
         
         var summary = [String]()
