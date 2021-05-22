@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */; };
+		2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */; };
 		350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6D825E02D5E0000F698 /* WelcomeView.swift */; };
 		350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6E325E035840000F698 /* WelcomeFeatureView.swift */; };
 		350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Prototype.storyboard; sourceTree = "<group>"; };
+		2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypeViewController.swift; sourceTree = "<group>"; };
 		350AF6D825E02D5E0000F698 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		350AF6E325E035840000F698 /* WelcomeFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFeatureView.swift; sourceTree = "<group>"; };
 		350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Badge.swift"; sourceTree = "<group>"; };
@@ -88,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BC398E32656E46900F541D0 /* Prototype */ = {
+			isa = PBXGroup;
+			children = (
+				2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */,
+				2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */,
+			);
+			path = Prototype;
+			sourceTree = "<group>";
+		};
 		350AF6E225E035750000F698 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +194,7 @@
 		DECA25AA25CC8FD600851431 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				2BC398E32656E46900F541D0 /* Prototype */,
 				35868D2F25E0522E0028AF1D /* Extensions */,
 				35EAFB7425CC9E0800DCFE10 /* Services */,
 				DECA25AE25CC908800851431 /* AppDelegate */,
@@ -340,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECA257825CC8D4300851431 /* LaunchScreen.storyboard in Resources */,
+				2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */,
 				DEED7FCE25CC975D00BA0CDB /* Localizable.strings in Resources */,
 				DECA257525CC8D4300851431 /* Assets.xcassets in Resources */,
 			);
@@ -370,6 +385,7 @@
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
 				DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */,
 				DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */,
+				2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
