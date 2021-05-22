@@ -7,18 +7,18 @@
 
 import Foundation
 
-final class InteractorLoaderPresentationAdapter<Resource, View: InteractorResourceView> {
+public final class InteractorLoaderPresentationAdapter<Resource, View: InteractorResourceView> {
     
-    typealias Loader = ((Result<Resource, Error>) -> Void) -> Void
+    public typealias Loader = (@escaping (Result<Resource, Error>) -> Void) -> Void
         
     private let loader: Loader
-    var presenter: InteractorPresenter<Resource, View>?
+    public var presenter: InteractorPresenter<Resource, View>?
     
-    init(loader: @escaping Loader) {
+    public init(loader: @escaping Loader) {
         self.loader = loader
     }
     
-    func load() {
+    public func load() {
         presenter?.didStartLoading()
         
         loader { [weak self] result in

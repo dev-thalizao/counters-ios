@@ -1,18 +1,30 @@
 //
-//  CounterViewModel.swift
+//  CountersPresenter.swift
 //  
 //
 //  Created by Thales Frigo on 19/05/21.
 //
 
 import Foundation
+import CounterCore
 
-struct CountersViewModel: Equatable {
+public struct CountersViewModel: Hashable {
+    public let summary: String
+}
+
+extension CountersViewModel {
     
-    let counters: [CounterViewModel]
+    static var empty: CountersViewModel {
+        return .init(summary: "")
+    }
+}
+
+final class CountersPresenter {
     
-    var summary: String {
-        guard !counters.isEmpty else { return "" }
+    static let title = "Counters"
+    
+    static func map(_ counters: [Counter]) -> CountersViewModel {
+        guard !counters.isEmpty else { return .empty }
         
         var summary = [String]()
         
@@ -32,11 +44,6 @@ struct CountersViewModel: Equatable {
             ? summary.append("times")
             : summary.append("time")
         
-        return summary.joined(separator: " ")
+        return CountersViewModel(summary: summary.joined(separator: " "))
     }
-}
-
-struct CounterViewModel: Equatable {
-    let count: String
-    let title: String
 }

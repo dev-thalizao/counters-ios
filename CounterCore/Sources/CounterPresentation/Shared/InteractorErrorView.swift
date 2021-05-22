@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct InteractorErrorViewModel {
-    let reason: String?
+public struct InteractorErrorViewModel {
+    public let reason: String?
 }
 
-protocol InteractorErrorView {
+public protocol InteractorErrorView {
     func display(_ viewModel: InteractorErrorViewModel)
 }

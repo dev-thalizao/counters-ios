@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct InteractorLoadingViewModel {
-    let isLoading: Bool
+public struct InteractorLoadingViewModel {
+    public let isLoading: Bool
 }
 
-protocol InteractorLoadingView {
+public protocol InteractorLoadingView {
     func display(_ viewModel: InteractorLoadingViewModel)
 }

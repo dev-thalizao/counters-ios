@@ -7,25 +7,32 @@
 
 import Foundation
 
-protocol InteractorResourceView {
+public protocol InteractorResourceView {
     associatedtype InteractorResourceViewModel
     
     func display(viewModel: InteractorResourceViewModel)
 }
 
-final class InteractorPresenter<Resource, View: InteractorResourceView> {
-    typealias Mapper = (Resource) throws -> View.InteractorResourceViewModel
+public final class InteractorPresenter<Resource, View: InteractorResourceView> {
+    public typealias Mapper = (Resource) throws -> View.InteractorResourceViewModel
     
     private let resourceView: View
     private let loadingView: InteractorLoadingView
     private let errorView: InteractorErrorView
     private let mapper: Mapper
     
-    init(resourceView: View, loadingView: InteractorLoadingView, errorView: InteractorErrorView, mapper: @escaping Mapper) {
+    public init(resourceView: View, loadingView: InteractorLoadingView, errorView: InteractorErrorView, mapper: @escaping Mapper) {
         self.resourceView = resourceView
         self.loadingView = loadingView
         self.errorView = errorView
         self.mapper = mapper
+    }
+    
+    public init(resourceView: View, loadingView: InteractorLoadingView, errorView: InteractorErrorView) where Resource == View.InteractorResourceViewModel {
+        self.resourceView = resourceView
+        self.loadingView = loadingView
+        self.errorView = errorView
+        self.mapper = { $0 }
     }
     
     func didStartLoading() {
