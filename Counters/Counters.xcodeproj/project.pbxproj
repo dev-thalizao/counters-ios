@@ -3,10 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B136ECA265948A90051BE7C /* CounterCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136EC9265948A90051BE7C /* CounterCore */; };
+		2B136ECC265948A90051BE7C /* CounterPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136ECB265948A90051BE7C /* CounterPresentation */; };
+		2B136ECE265948A90051BE7C /* CounterStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136ECD265948A90051BE7C /* CounterStore */; };
+		2B136ED0265948A90051BE7C /* CounterUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136ECF265948A90051BE7C /* CounterUI */; };
 		2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */; };
 		2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */; };
 		350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6D825E02D5E0000F698 /* WelcomeView.swift */; };
@@ -72,6 +76,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B136ECE265948A90051BE7C /* CounterStore in Frameworks */,
+				2B136ECA265948A90051BE7C /* CounterCore in Frameworks */,
+				2B136ECC265948A90051BE7C /* CounterPresentation in Frameworks */,
+				2B136ED0265948A90051BE7C /* CounterUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +100,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B136EC8265948A90051BE7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2BC398E32656E46900F541D0 /* Prototype */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +164,7 @@
 				DECA258125CC8D4300851431 /* CountersTests */,
 				DECA258C25CC8D4300851431 /* CountersUITests */,
 				DECA256925CC8D4200851431 /* Products */,
+				2B136EC8265948A90051BE7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,6 +281,12 @@
 			dependencies = (
 			);
 			name = Counters;
+			packageProductDependencies = (
+				2B136EC9265948A90051BE7C /* CounterCore */,
+				2B136ECB265948A90051BE7C /* CounterPresentation */,
+				2B136ECD265948A90051BE7C /* CounterStore */,
+				2B136ECF265948A90051BE7C /* CounterUI */,
+			);
 			productName = Counters;
 			productReference = DECA256825CC8D4200851431 /* Counters.app */;
 			productType = "com.apple.product-type.application";
@@ -721,6 +743,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2B136EC9265948A90051BE7C /* CounterCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CounterCore;
+		};
+		2B136ECB265948A90051BE7C /* CounterPresentation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CounterPresentation;
+		};
+		2B136ECD265948A90051BE7C /* CounterStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CounterStore;
+		};
+		2B136ECF265948A90051BE7C /* CounterUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CounterUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DECA256025CC8D4200851431 /* Project object */;
 }

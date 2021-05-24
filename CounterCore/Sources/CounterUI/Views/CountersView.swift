@@ -43,8 +43,8 @@ final class CountersView: UIView {
         tableView.rowHeight = Layout.TableView.rowHeight
         tableView.separatorStyle = Layout.TableView.separatorStyle
         tableView.contentInset = Layout.TableView.contentInset
+        tableView.allowsMultipleSelection = true
         tableView.allowsMultipleSelectionDuringEditing = true
-        tableView.refreshControl = UIRefreshControl()
         return tableView
     }()
     

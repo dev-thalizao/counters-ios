@@ -6,21 +6,13 @@
 //
 
 import UIKit
+import CounterPresentation
 
 final class CounterView: UIView {
     
-    // MARK: - View Model
-    
-    struct ViewModel: Hashable {
-        let counter: String
-        let title: String
-        let enabled: Bool
-//        let onTap: (Int) -> Void
-    }
-    
     // MARK: - Properties
     
-    private lazy var counterLabel: UILabel = {
+    private(set) lazy var counterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Layout.Counter.color
@@ -29,14 +21,14 @@ final class CounterView: UIView {
         return label
     }()
     
-    private lazy var separatorView: UIView = {
+    private(set) lazy var separatorView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Layout.Separator.color
         return view
     }()
     
-    private lazy var titleLabel: UILabel = {
+    private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: Layout.Title.font)
@@ -45,14 +37,14 @@ final class CounterView: UIView {
         return label
     }()
     
-    private lazy var counterStepper: UIStepper = {
+    private(set) lazy var counterStepper: UIStepper = {
         let stepper = UIStepper()
         stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.addTarget(self, action: #selector(didTapOnStepper(_:)), for: .valueChanged)
         return stepper
     }()
     
-    private var onCounterStepperChanged: (Int) -> Void = { _ in }
+    var onCounterStepperChanged: (Int) -> Void = { _ in }
     
     private lazy var shapeLayer = CAShapeLayer()
     
@@ -88,16 +80,16 @@ final class CounterView: UIView {
     
     // MARK: - Configuration
     
-    public func configure(with viewModel: ViewModel) {
+    public func configure(with viewModel: CounterViewModel) {
         counterLabel.attributedText = .init(
-            string: viewModel.counter,
-            attributes: [
-                .kern: Layout.Counter.kern,
-                .paragraphStyle: Layout.Counter.paragraph
-            ]
+            string: viewModel.count,
+            attributes: [.kern: Layout.Counter.kern]
         )
-        titleLabel.attributedText = .init(string: viewModel.title, attributes: [.kern: Layout.Title.kern])
-        counterStepper.isEnabled = viewModel.enabled
+        titleLabel.attributedText = .init(
+            string: viewModel.title,
+            attributes: [.kern: Layout.Title.kern]
+        )
+//        counterStepper.isEnabled = viewModel.enabled
 //        onCounterStepperChanged = viewModel.onTap
     }
 }

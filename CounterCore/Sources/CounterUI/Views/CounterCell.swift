@@ -16,16 +16,16 @@ final class CounterCell: UITableViewCell {
         counterView.translatesAutoresizingMaskIntoConstraints = false
         return counterView
     }()
-    
+
     // MARK: - Initialization
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) { nil }
+//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+////        setup()
+//    }
+//    
+//    @available(*, unavailable)
+//    required init?(coder: NSCoder) { nil }
 }
 
 // MARK: - ViewConfiguration Methods
@@ -75,9 +75,9 @@ private extension CounterCell {
         
         enum Counter {
             static let top = CGFloat(8)
-            static let left = CGFloat(12)
+            static let left: CGFloat = 12
             static let bottom = CGFloat(-8)
-            static let right = CGFloat(-12)
+            static let right: CGFloat = -12
         }
     }
 }

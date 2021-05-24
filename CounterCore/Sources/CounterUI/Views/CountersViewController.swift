@@ -11,11 +11,15 @@ import CounterPresentation
 final class CountersViewController: UIViewController {
     
     typealias OnRefresh = () -> Void
+    typealias OnAdd = () -> Void
     
     private(set) lazy var contentView = CountersView()
     private(set) lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
     
+    private lazy var searchController = UISearchController(searchResultsController: nil)
+    
     var onRefresh: OnRefresh?
+    var onAdd: OnAdd?
     
     // MARK: - View Lifecycle
     
@@ -39,8 +43,12 @@ final class CountersViewController: UIViewController {
     
     private func configureNavigationItem() {
         navigationItem.title = "Counters"
-        navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.leftBarButtonItem = contentView.editButton
+        navigationItem.largeTitleDisplayMode = .always
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        navigationItem.searchController = searchController
+        
     }
     
     private func configureToolbar() {
@@ -63,19 +71,20 @@ extension CountersViewController: CountersViewDelegate {
         navigationItem.setLeftBarButton(view.doneButton, animated: true)
         navigationItem.setRightBarButton(view.selectAllButton, animated: true)
         setToolbarItems(view.toolbarEditItems(), animated: true)
+        setEditing(true, animated: true)
+        contentView.tableView.setEditing(true, animated: true)
     }
     
     func countersViewDidEndEditing(_ view: CountersView) {
         navigationItem.setLeftBarButton(view.editButton, animated: true)
-        navigationItem.setRightBarButton(nil, animated: false)
+        navigationItem.setRightBarButton(nil, animated: true)
         setToolbarItems(view.toolbarDefaultItems(), animated: true)
+        setEditing(false, animated: true)
+        contentView.tableView.setEditing(false, animated: true)
     }
     
     func countersViewDidSendAdd(_ view: CountersView) {
-        let blankVC = UIViewController()
-        blankVC.view.backgroundColor = .systemPink
-        
-        present(blankVC, animated: true)
+        onAdd?()
     }
     
     func countersViewDidSendAction(_ view: CountersView) {
@@ -94,9 +103,9 @@ extension CountersViewController: CountersViewDelegate {
 
 // MARK: - InteractorLoadingView Methods
 
-extension CountersViewController: InteractorLoadingView, InteractorErrorView {
+extension CountersViewController: InteractorLoadingView {
     
-    func display(_ viewModel: InteractorLoadingViewModel) {
+    func display(viewModel: InteractorLoadingViewModel) {
         contentView.tableView.refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
 }
@@ -105,7 +114,7 @@ extension CountersViewController: InteractorLoadingView, InteractorErrorView {
 
 extension CountersViewController: InteractorErrorView {
     
-    func display(_ viewModel: InteractorErrorViewModel) {
+    func display(viewModel: InteractorErrorViewModel) {
         guard let reason = viewModel.reason else { return }
         
         let alertVC = UIAlertController(title: "Ops", message: reason, preferredStyle: .alert)
@@ -114,5 +123,3 @@ extension CountersViewController: InteractorErrorView {
         present(alertVC, animated: true)
     }
 }
-
-

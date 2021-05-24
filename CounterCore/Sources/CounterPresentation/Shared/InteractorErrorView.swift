@@ -12,5 +12,5 @@ public struct InteractorErrorViewModel {
 }
 
 public protocol InteractorErrorView {
-    func display(_ viewModel: InteractorErrorViewModel)
+    func display(viewModel: InteractorErrorViewModel)
 }

@@ -48,12 +48,13 @@ extension DiffableDataSource: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
         let delegate = cellController(at: indexPath)?.delegate
-        return delegate?.tableView?(tableView, shouldBeginMultipleSelectionInteractionAt: indexPath) ?? false
+        return delegate?.tableView?(tableView, shouldBeginMultipleSelectionInteractionAt: indexPath) ?? true
     }
     
     func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
-        let delegate = cellController(at: indexPath)?.delegate
-        delegate?.tableView?(tableView, didBeginMultipleSelectionInteractionAt: indexPath)
+//        let delegate = cellController(at: indexPath)?.delegate
+//        delegate?.tableView?(tableView, didBeginMultipleSelectionInteractionAt: indexPath)
+        tableView.setEditing(true, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

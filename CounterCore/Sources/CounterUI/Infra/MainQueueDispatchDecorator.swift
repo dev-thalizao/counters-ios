@@ -7,10 +7,11 @@
 
 import Foundation
 
-final class MainQueueDispatchDecorator<T> {
+public final class MainQueueDispatchDecorator<T> {
+    
     let decoratee: T
     
-    init(decoratee: T) {
+    public init(decoratee: T) {
         self.decoratee = decoratee
     }
     

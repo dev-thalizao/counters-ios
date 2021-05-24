@@ -36,13 +36,13 @@ public final class InteractorPresenter<Resource, View: InteractorResourceView> {
     }
     
     func didStartLoading() {
-        loadingView.display(.init(isLoading: true))
-        errorView.display(.init(reason: nil))
+        loadingView.display(viewModel: .init(isLoading: true))
+        errorView.display(viewModel: .init(reason: nil))
     }
     
     func didFinishLoading(with resource: Resource) {
         do {
-            loadingView.display(.init(isLoading: false))
+            loadingView.display(viewModel: .init(isLoading: false))
             resourceView.display(viewModel: try mapper(resource))
         } catch {
             didFinishLoading(with: error)
@@ -50,7 +50,7 @@ public final class InteractorPresenter<Resource, View: InteractorResourceView> {
     }
     
     func didFinishLoading(with error: Error) {
-        loadingView.display(.init(isLoading: false))
-        errorView.display(.init(reason: error.localizedDescription))
+        loadingView.display(viewModel: .init(isLoading: false))
+        errorView.display(viewModel: .init(reason: error.localizedDescription))
     }
 }

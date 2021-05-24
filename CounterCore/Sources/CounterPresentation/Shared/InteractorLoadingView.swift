@@ -12,5 +12,5 @@ public struct InteractorLoadingViewModel {
 }
 
 public protocol InteractorLoadingView {
-    func display(_ viewModel: InteractorLoadingViewModel)
+    func display(viewModel: InteractorLoadingViewModel)
 }
