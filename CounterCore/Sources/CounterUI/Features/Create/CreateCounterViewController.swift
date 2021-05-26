@@ -8,21 +8,21 @@
 import UIKit
 import CounterPresentation
 
-final class CreateCounterViewController: UIViewController {
+public final class CreateCounterViewController: UIViewController {
 
-    typealias OnFinish = (CreateCounterViewController) -> Void
-    typealias OnSelect = (String) -> Void
+    public typealias OnFinish = (CreateCounterViewController) -> Void
+    public typealias OnSelect = (String) -> Void
     
-    var onFinish: OnFinish?
-    var onSelect: OnSelect?
+    public var onFinish: OnFinish?
+    public var onSelect: OnSelect?
     
     private lazy var contentView = CreateCounterView()
     
-    override func loadView() {
+    public override func loadView() {
         view = contentView
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         configureContentView()
         configureNavigationItem()
@@ -33,7 +33,6 @@ final class CreateCounterViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
-        navigationItem.title = "Create a counter"
         navigationItem.leftBarButtonItem = contentView.cancelButton
         navigationItem.rightBarButtonItem = contentView.saveButton
     }
@@ -56,7 +55,7 @@ extension CreateCounterViewController: CreateCounterViewDelegate {
 
 extension CreateCounterViewController: InteractorLoadingView {
     
-    func display(viewModel: InteractorLoadingViewModel) {
+    public func display(viewModel: InteractorLoadingViewModel) {
         contentView.activityIndicator.update(isAnimating: viewModel.isLoading)
     }
 }
@@ -65,7 +64,7 @@ extension CreateCounterViewController: InteractorLoadingView {
 
 extension CreateCounterViewController: InteractorErrorView {
     
-    func display(viewModel: InteractorErrorViewModel) {
+    public func display(viewModel: InteractorErrorViewModel) {
         guard let reason = viewModel.reason else { return }
         
         let alertVC = UIAlertController(title: "Ops", message: reason, preferredStyle: .alert)

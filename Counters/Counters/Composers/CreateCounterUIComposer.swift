@@ -1,18 +1,20 @@
 //
 //  CreateCounterUIComposer.swift
-//  
+//  Counters
 //
-//  Created by Thales Frigo on 22/05/21.
+//  Created by Thales Frigo on 26/05/21.
 //
 
 import UIKit
 import CounterCore
 import CounterPresentation
+import CounterUI
+
+private typealias CreatePresentationAdapter = InteractorLoaderPresentationAdapter<Counter, CreateCounterViewAdapter>
 
 public final class CreateCounterUIComposer {
-    private init() {}
     
-    private typealias PresentationAdapter = InteractorLoaderPresentationAdapter<Counter, CreateCounterViewAdapter>
+    private init() {}
     
     public static func createComposedWith(
         idGenerator: @escaping () -> Counter.ID,
@@ -20,6 +22,7 @@ public final class CreateCounterUIComposer {
         onFinish: @escaping (UIViewController) -> Void
     ) -> UIViewController {
         let controller = CreateCounterViewController()
+        controller.title = CreateCounterPresenter.title
         
         let presenter = InteractorPresenter(
             resourceView: CreateCounterViewAdapter(controller),
@@ -29,7 +32,7 @@ public final class CreateCounterUIComposer {
         
         controller.onFinish = onFinish
         controller.onSelect = { [counterCreator, presenter] name in
-            let adapter = PresentationAdapter(loader: { completion in
+            let adapter = CreatePresentationAdapter(loader: { completion in
                 counterCreator.create(.init(id: idGenerator(), title: name), completion: completion)
             })
             

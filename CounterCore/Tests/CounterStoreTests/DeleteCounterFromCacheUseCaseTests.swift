@@ -1,8 +1,8 @@
 //
-//  CreateCounterFromCacheUseCaseTests.swift
+//  DeleteCounterFromCacheUseCaseTests.swift
+//  
 //
-//
-//  Created by Thales Frigo on 19/05/21.
+//  Created by Thales Frigo on 26/05/21.
 //
 
 import XCTest
@@ -10,63 +10,62 @@ import CounterCore
 import CounterTests
 @testable import CounterStore
 
-final class CreateCounterFromCacheUseCaseTests: XCTestCase {
+final class DeleteCounterFromCacheUseCaseTests: XCTestCase {
 
     func testInitDoesNotTriggerAnyCall() {
         let (_, store) = makeSUT()
         XCTAssertEqual(store.messages, [])
     }
     
-    func testCreateFailsOnInsertionError() {
+    func testDeleteFailsOnDeletionError() {
         let (sut, store) = makeSUT()
-        let insertionError = anyNSError()
+        let deletionError = anyNSError()
         
-        expect(sut, toCompleteWith: .failure(insertionError)) {
-            store.completeInsertion(with: insertionError)
+        expect(sut, toCompleteWith: .failure(deletionError)) {
+            store.completeDeletion(with: deletionError)
         }
         
-        XCTAssertEqual(store.messages, [.insert])
+        XCTAssertEqual(store.messages, [.delete])
     }
     
-    func testCreateSucceedsOnSuccessfulInsertion() {
+    func testDeleteSucceedsOnSuccessfulDeletion() {
         let (sut, store) = makeSUT()
-        let counter = Counter(id: "expect-id", title: "expect-title", count: 0)
-        
-        expect(sut, toCompleteWith: .success(counter)) {
-            store.completeInsertionSuccessfully()
+
+        expect(sut, toCompleteWith: .success(())) {
+            store.completeDeletionSuccessfully()
         }
         
-        XCTAssertEqual(store.messages, [.insert])
+        XCTAssertEqual(store.messages, [.delete])
     }
     
     // MARK: - Helpers
     
     private func makeSUT(
         file: StaticString = #filePath, line: UInt = #line
-    ) -> (sut: LocalCounterCreator, store: CounterStoreSpy) {
+    ) -> (sut: LocalCounterEraser, store: CounterStoreSpy) {
         let store = CounterStoreSpy()
-        let sut = LocalCounterCreator(store: store)
+        let sut = LocalCounterEraser(store: store)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
     }
     
     private func expect(
-        _ sut: LocalCounterCreator,
-        toCompleteWith expectedResult: Result<Counter, Error>,
+        _ sut: LocalCounterEraser,
+        toCompleteWith expectedResult: Result<Void, Error>,
         when action: () -> Void,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
         action()
         
-        var receivedResult: Result<Counter, Error>?
+        var receivedResult: Result<Void, Error>?
         
-        sut.create(.init(id: "expect-id", title: "expect-title")) { receivedResult = $0 }
+        sut.erase(["expect-id"]) { receivedResult = $0 }
         
         switch (receivedResult, expectedResult) {
-        case let (.success(received), .success(expected)):
-            XCTAssertEqual(received, expected, file: file, line: line)
+        case (.success, .success):
+            XCTAssertTrue(true)
             
         case let (.failure(received as NSError), .failure(expected as NSError)):
             XCTAssertEqual(received, expected, file: file, line: line)
@@ -76,3 +75,4 @@ final class CreateCounterFromCacheUseCaseTests: XCTestCase {
         }
     }
 }
+

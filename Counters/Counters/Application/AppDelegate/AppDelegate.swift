@@ -13,6 +13,7 @@ import CounterPresentation
 import CounterUI
 
 final class NullStore: CounterStore {
+    
     func retrieve() throws -> [Counter] {
         return []
     }
@@ -24,6 +25,8 @@ final class NullStore: CounterStore {
     func counter(with id: Counter.ID) throws -> Counter {
         throw NotFoundError()
     }
+    
+    func delete(with id: Counter.ID) throws {}
 }
 
 @main
@@ -70,19 +73,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }()
     
-    private lazy var counterDecremenetr: CounterDecrementer = {
+    private lazy var counterDecrementer: CounterDecrementer = {
         return MainQueueDispatchDecorator(
             decoratee: LocalCounterDecrementer(store: store)
         )
     }()
     
+    private lazy var counterEraser: CounterEraser = {
+        return MainQueueDispatchDecorator(
+            decoratee: LocalCounterEraser(store: store)
+        )
+    }()
+    
     private lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController(
-            rootViewController: CounterUIComposer.counterComposedWith(
+            rootViewController: LoadCountersUIComposer.counterComposedWith(
                 counterLoader: counterLoader,
                 counterIncrementer: counterIncrementer,
-                counterDecrementer: counterDecremenetr,
-                onAdd: showCreationPage
+                counterDecrementer: counterDecrementer,
+                onAdd: showCreation,
+                onErase: showEraser,
+                onShare: showShare
             )
         )
         navigationController.view.backgroundColor = .systemBackground
@@ -105,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    private func showCreationPage() {
+    private func showCreation() {
         let idGenerator: () -> Counter.ID = {
             return UUID().uuidString
         }
@@ -113,14 +124,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let createVC = CreateCounterUIComposer.createComposedWith(
             idGenerator: idGenerator,
             counterCreator: counterCreator,
-            onFinish: { $0.dismiss(animated: true) }
+            onFinish: { [navigationController] in
+                $0.dismiss(animated: true) {
+                    navigationController.topViewController?.viewWillAppear(true)
+                }
+            }
         )
         
         let createNC = UINavigationController(
             rootViewController: createVC
         )
-        createNC.modalPresentationStyle = .fullScreen
         
         navigationController.present(createNC, animated: true)
+    }
+    
+    private func showEraser(_ counters: [Counter]) {
+        let eraserVC = EraseCountersUIComposer.eraseComposedWith(
+            counters: counters,
+            counterEraser: counterEraser,
+            onFinish: { [navigationController] in
+                $0.dismiss(animated: true) {
+                    navigationController.topViewController?.viewWillAppear(true)
+                }
+            }
+        )
+        
+        eraserVC.modalPresentationStyle = .overFullScreen
+        eraserVC.modalTransitionStyle = .crossDissolve
+        
+        navigationController.present(eraserVC, animated: false)
+    }
+    
+    private func showShare(_ counters: [Counter]) {
+        navigationController.present(
+            ShareCountersUIComposer.shareComposedWith(counters),
+            animated: true
+        )
     }
 }

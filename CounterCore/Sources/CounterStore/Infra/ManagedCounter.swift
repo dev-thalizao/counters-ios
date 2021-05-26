@@ -33,8 +33,6 @@ extension ManagedCounter {
         }
     }
     
-    struct NotFoundError: Error {}
-    
     static func first(with id: Counter.ID, in context: NSManagedObjectContext) throws -> ManagedCounter {
         let request = NSFetchRequest<ManagedCounter>(entityName: "ManagedCounter")
         request.predicate = NSPredicate(format: "%K = %@", argumentArray: [#keyPath(ManagedCounter.id), id])
@@ -42,10 +40,16 @@ extension ManagedCounter {
         request.fetchLimit = 1
         
         guard let counter = try context.fetch(request).first else {
-            throw NotFoundError()
+            throw CoreDataCounterStore.StoreError.modelNotFound
         }
         
         return counter
+    }
+    
+    static func delete(with id: Counter.ID, in context: NSManagedObjectContext) throws {
+        let managed = try first(with: id, in: context)
+        context.delete(managed)
+        try context.save()
     }
     
     var toDomain: Counter {

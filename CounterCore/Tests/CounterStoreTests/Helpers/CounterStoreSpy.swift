@@ -10,17 +10,19 @@ import CounterCore
 import CounterStore
 
 final class CounterStoreSpy: CounterStore {
-    
+
     enum Message: Equatable {
         case retrieve
         case insert
         case counter
+        case delete
     }
     
     private(set) var messages = [Message]()
     private(set) var retrievalResult: Result<[Counter], Error>?
     private(set) var insertionResult: Result<Void, Error>?
     private(set) var counterResult: Result<Counter, Error>?
+    private(set) var deletionResult: Result<Void, Error>?
     
     func retrieve() throws -> [Counter] {
         messages.append(.retrieve)
@@ -63,5 +65,18 @@ final class CounterStoreSpy: CounterStore {
     
     func completeCounter(with counter: Counter) {
         counterResult = .success(counter)
+    }
+    
+    func delete(with id: Counter.ID) throws {
+        messages.append(.delete)
+        try deletionResult!.get()
+    }
+    
+    func completeDeletion(with error: Error) {
+        deletionResult = .failure(error)
+    }
+    
+    func completeDeletionSuccessfully() {
+        deletionResult = .success(())
     }
 }

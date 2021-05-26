@@ -13,7 +13,7 @@ public final class CellController {
     let dataSource: UITableViewDataSource
     let delegate: UITableViewDelegate?
     
-    init(id: AnyHashable, dataSource: UITableViewDataSource) {
+    public init(id: AnyHashable, dataSource: UITableViewDataSource) {
         self.id = id
         self.dataSource = dataSource
         self.delegate = dataSource as? UITableViewDelegate

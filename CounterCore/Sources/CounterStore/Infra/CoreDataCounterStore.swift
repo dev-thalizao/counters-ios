@@ -18,6 +18,7 @@ public final class CoreDataCounterStore {
     enum StoreError: Error {
         case modelNotFound
         case persitentContainer(Error)
+        case objectNotFound
     }
     
     public init(storeURL: URL) throws {
@@ -59,6 +60,8 @@ public final class CoreDataCounterStore {
     }
 }
 
+// MARK: - CounterStore Methods
+
 extension CoreDataCounterStore: CounterStore {
     
     public func retrieve() throws -> [Counter] {
@@ -82,6 +85,14 @@ extension CoreDataCounterStore: CounterStore {
         try performSync { context in
             Result {
                 try ManagedCounter.first(with: id, in: context).toDomain
+            }
+        }
+    }
+    
+    public func delete(with id: Counter.ID) throws {
+        try performSync { context in
+            Result {
+                try ManagedCounter.delete(with: id, in: context)
             }
         }
     }
