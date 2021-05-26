@@ -22,6 +22,8 @@ internal final class WelcomeView: UIView {
     private let subtitleLabel = UILabel()
     private let stackView = UIStackView()
     private let button = Button()
+    
+    var onTap: (() -> Void)?
 
     // MARK: - Initialization
     
@@ -169,6 +171,6 @@ private extension WelcomeView {
 
 private extension WelcomeView {
     @objc func didPressContinue() {
-        
+        onTap?()
     }
 }

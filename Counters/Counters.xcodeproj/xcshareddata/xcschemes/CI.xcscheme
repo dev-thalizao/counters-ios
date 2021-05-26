@@ -83,6 +83,17 @@
                ReferencedContainer = "container:../CounterCore">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CounterPresentationTests"
+               BuildableName = "CounterPresentationTests"
+               BlueprintName = "CounterPresentationTests"
+               ReferencedContainer = "container:../CounterCore">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
