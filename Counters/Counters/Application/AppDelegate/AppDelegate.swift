@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController(
-            rootViewController: CounterUIComposer.counterComposedWith(
+            rootViewController: LoadCountersUIComposer.counterComposedWith(
                 counterLoader: counterLoader,
                 counterIncrementer: counterIncrementer,
                 counterDecrementer: counterDecrementer,
@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func showEraser(_ counters: [Counter]) {
-        let eraserVC = EraseCounterUIComposer.eraseComposedWith(
+        let eraserVC = EraseCountersUIComposer.eraseComposedWith(
             counters: counters,
             counterEraser: counterEraser,
             onFinish: { [navigationController] in
@@ -154,7 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func showShare(_ counters: [Counter]) {
         navigationController.present(
-            ShareUIComposer.shareComposedWith(counters),
+            ShareCountersUIComposer.shareComposedWith(counters),
             animated: true
         )
     }

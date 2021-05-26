@@ -8,37 +8,35 @@
 import UIKit
 import CounterPresentation
 
-final class CountersViewController: UIViewController {
+public final class CountersViewController: UIViewController {
+    public typealias Action = () -> Void
+    public typealias OnErase = ([IndexPath]) -> Void
+    public typealias OnShare = ([IndexPath]) -> Void
     
-    typealias OnRefresh = () -> Void
-    typealias OnAdd = () -> Void
-    typealias OnErase = ([IndexPath]) -> Void
-    typealias OnShare = ([IndexPath]) -> Void
-    
-    private(set) lazy var contentView = CountersView()
-    private(set) lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
+    private lazy var contentView = CountersView()
+    private lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
     
     private lazy var searchController = UISearchController(searchResultsController: nil)
     
-    var onRefresh: OnRefresh?
-    var onAdd: OnAdd?
-    var onErase: OnErase?
-    var onShare: OnShare?
+    public var onRefresh: Action?
+    public var onAdd: Action?
+    public var onErase: OnErase?
+    public var onShare: OnShare?
     
     // MARK: - View Lifecycle
     
-    override func loadView() {
+    public override func loadView() {
         view = contentView
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         configureContentView()
         configureNavigationItem()
         configureToolbar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         onRefresh?()
     }
@@ -46,13 +44,11 @@ final class CountersViewController: UIViewController {
     // MARK: - Private Methods
     
     private func configureNavigationItem() {
-        navigationItem.title = "Counters"
         navigationItem.leftBarButtonItem = contentView.editButton
         navigationItem.largeTitleDisplayMode = .always
         
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
-        
     }
     
     private func configureToolbar() {
@@ -67,7 +63,16 @@ final class CountersViewController: UIViewController {
         
         contentView.tableView.dataSource = diffable.dataSource
         contentView.tableView.delegate = diffable
-        
+    }
+    
+    // MARK: - Public Methods
+    
+    public func display(viewModel: CountersViewModel) {
+        contentView.summaryLabel.text = viewModel.summary
+    }
+    
+    public func display(viewModel: [CellController]) {
+        diffable.display(viewModel)
     }
 }
 
@@ -116,19 +121,9 @@ extension CountersViewController: CountersViewDelegate {
 
 // MARK: - InteractorLoadingView Methods
 
-extension CountersViewController: InteractorResourceView {
-    typealias InteractorResourceViewModel = CountersViewModel
-    
-    func display(viewModel: CountersViewModel) {
-        contentView.summaryLabel.text = viewModel.summary
-    }
-}
-
-// MARK: - InteractorLoadingView Methods
-
 extension CountersViewController: InteractorLoadingView {
     
-    func display(viewModel: InteractorLoadingViewModel) {
+    public func display(viewModel: InteractorLoadingViewModel) {
         contentView.tableView.refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
 }
@@ -137,7 +132,7 @@ extension CountersViewController: InteractorLoadingView {
 
 extension CountersViewController: InteractorErrorView {
     
-    func display(viewModel: InteractorErrorViewModel) {
+    public func display(viewModel: InteractorErrorViewModel) {
         guard let reason = viewModel.reason else { return }
         
         let alertVC = UIAlertController(title: "Ops", message: reason, preferredStyle: .alert)

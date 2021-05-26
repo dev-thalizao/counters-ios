@@ -1,12 +1,21 @@
 //
-//  WeakRefVirtualProxy+UI.swift
-//  
+//  WeakRefVirtualProxy.swift
+//  Counters
 //
-//  Created by Thales Frigo on 22/05/21.
+//  Created by Thales Frigo on 26/05/21.
 //
 
 import Foundation
 import CounterPresentation
+
+final class WeakRefVirtualProxy<T: AnyObject> {
+    
+    private weak var object: T?
+    
+    init(_ object: T) {
+        self.object = object
+    }
+}
 
 extension WeakRefVirtualProxy: InteractorLoadingView where T: InteractorLoadingView {
     

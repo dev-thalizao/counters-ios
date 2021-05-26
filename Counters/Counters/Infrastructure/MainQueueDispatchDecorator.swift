@@ -1,16 +1,33 @@
 //
-//  MainQueueDispatchDecorator+UI.swift
-//  
+//  MainQueueDispatchDecorator.swift
+//  Counters
 //
-//  Created by Thales Frigo on 22/05/21.
+//  Created by Thales Frigo on 26/05/21.
 //
 
 import Foundation
 import CounterCore
 
+final class MainQueueDispatchDecorator<T> {
+    
+    private let decoratee: T
+    
+    init(decoratee: T) {
+        self.decoratee = decoratee
+    }
+    
+    func dispatch(completion: @escaping () -> Void) {
+        guard Thread.isMainThread else {
+            return DispatchQueue.main.async(execute: completion)
+        }
+        
+        completion()
+    }
+}
+
 extension MainQueueDispatchDecorator: CounterLoader where T == CounterLoader {
     
-    public func load(completion: @escaping (CounterLoader.Result) -> Void) {
+    func load(completion: @escaping (CounterLoader.Result) -> Void) {
         decoratee.load { [weak self] result in
             self?.dispatch { completion(result) }
         }
@@ -19,7 +36,7 @@ extension MainQueueDispatchDecorator: CounterLoader where T == CounterLoader {
 
 extension MainQueueDispatchDecorator: CounterCreator where T == CounterCreator {
     
-    public func create(_ request: CreateCounterRequest, completion: @escaping (CounterCreator.Result) -> Void) {
+    func create(_ request: CreateCounterRequest, completion: @escaping (CounterCreator.Result) -> Void) {
         decoratee.create(request) { [weak self] result in
             self?.dispatch { completion(result) }
         }
@@ -28,7 +45,7 @@ extension MainQueueDispatchDecorator: CounterCreator where T == CounterCreator {
 
 extension MainQueueDispatchDecorator: CounterIncrementer where T == CounterIncrementer {
     
-    public func increment(_ id: Counter.ID, completion: @escaping (CounterIncrementer.Result) -> Void) {
+    func increment(_ id: Counter.ID, completion: @escaping (CounterIncrementer.Result) -> Void) {
         decoratee.increment(id) { [weak self] result in
             self?.dispatch { completion(result) }
         }
@@ -37,7 +54,7 @@ extension MainQueueDispatchDecorator: CounterIncrementer where T == CounterIncre
 
 extension MainQueueDispatchDecorator: CounterDecrementer where T == CounterDecrementer {
     
-    public func decrement(_ id: Counter.ID, completion: @escaping (CounterDecrementer.Result) -> Void) {
+    func decrement(_ id: Counter.ID, completion: @escaping (CounterDecrementer.Result) -> Void) {
         decoratee.decrement(id) { [weak self] result in
             self?.dispatch { completion(result) }
         }
@@ -46,7 +63,7 @@ extension MainQueueDispatchDecorator: CounterDecrementer where T == CounterDecre
 
 extension MainQueueDispatchDecorator: CounterEraser where T == CounterEraser {
     
-    public func erase(_ ids: [Counter.ID], completion: @escaping (CounterEraser.Result) -> Void) {
+    func erase(_ ids: [Counter.ID], completion: @escaping (CounterEraser.Result) -> Void) {
         decoratee.erase(ids) { [weak self] result in
             self?.dispatch { completion(result) }
         }
