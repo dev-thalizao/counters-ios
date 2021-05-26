@@ -11,11 +11,11 @@ import CounterPresentation
 final class CounterCellController: NSObject {
     typealias CounterChanged = (CounterCellController) -> Void
     
-    private var viewModel: CounterViewModel
-    private var cell: CounterCell?
-    
+    private let viewModel: CounterViewModel
     public let onIncrease: CounterChanged
     public let onDecrease: CounterChanged
+    
+    private var cell: CounterCell?
     
     internal init(viewModel: CounterViewModel, onIncrease: @escaping CounterChanged, onDecrease: @escaping CounterChanged) {
         self.viewModel = viewModel
@@ -58,15 +58,6 @@ extension CounterCellController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
         tableView.setEditing(true, animated: true)
-    }
-}
-
-extension CounterCellController: InteractorResourceView {
-    typealias InteractorResourceViewModel = CounterViewModel
-
-    func display(viewModel: CounterViewModel) {
-        self.viewModel = viewModel
-        cell?.counterView.configure(with: viewModel)
     }
 }
 

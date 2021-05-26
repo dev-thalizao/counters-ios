@@ -13,6 +13,7 @@ final class CountersViewController: UIViewController {
     typealias OnRefresh = () -> Void
     typealias OnAdd = () -> Void
     typealias OnErase = ([IndexPath]) -> Void
+    typealias OnShare = ([IndexPath]) -> Void
     
     private(set) lazy var contentView = CountersView()
     private(set) lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
@@ -22,6 +23,7 @@ final class CountersViewController: UIViewController {
     var onRefresh: OnRefresh?
     var onAdd: OnAdd?
     var onErase: OnErase?
+    var onShare: OnShare?
     
     // MARK: - View Lifecycle
     
@@ -92,8 +94,13 @@ extension CountersViewController: CountersViewDelegate {
     }
     
     func countersViewDidSendAction(_ view: CountersView) {
-        let shareVC = UIActivityViewController(activityItems: ["Hey i'm sharing"], applicationActivities: nil)
-        present(shareVC, animated: true)
+        guard
+            view.tableView.isEditing,
+            let indexPaths = view.tableView.indexPathsForSelectedRows,
+            !indexPaths.isEmpty
+        else { return }
+        
+        onShare?(indexPaths)
     }
     
     func countersViewDidSendTrash(_ view: CountersView) {
@@ -103,14 +110,7 @@ extension CountersViewController: CountersViewDelegate {
             !indexPaths.isEmpty
         else { return }
         
-        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertVC.addAction(.init(title: "Delete", style: .destructive, handler: { [weak self] _ in
-            self?.onErase?(indexPaths)
-        }))
-        
-        alertVC.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(alertVC, animated: true)
+        onErase?(indexPaths)
     }
 }
 

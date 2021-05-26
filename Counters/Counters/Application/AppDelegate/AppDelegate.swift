@@ -91,8 +91,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 counterLoader: counterLoader,
                 counterIncrementer: counterIncrementer,
                 counterDecrementer: counterDecrementer,
-                counterEraser: counterEraser,
-                onAdd: showCreationPage
+                onAdd: showCreation,
+                onErase: showEraser,
+                onShare: showShare
             )
         )
         navigationController.view.backgroundColor = .systemBackground
@@ -115,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    private func showCreationPage() {
+    private func showCreation() {
         let idGenerator: () -> Counter.ID = {
             return UUID().uuidString
         }
@@ -132,5 +133,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         createNC.modalPresentationStyle = .fullScreen
         
         navigationController.present(createNC, animated: true)
+    }
+    
+    private func showEraser(_ counters: [Counter]) {
+        let eraserVC = EraseCounterUIComposer.eraseComposedWith(
+            counters: counters,
+            counterEraser: counterEraser,
+            onFinish: { [navigationController] in
+                navigationController.dismiss(animated: true) {
+                    navigationController.topViewController?.viewWillAppear(true)
+                }
+            }
+        )
+        
+        eraserVC.modalPresentationStyle = .overFullScreen
+        eraserVC.modalTransitionStyle = .crossDissolve
+        
+        navigationController.present(eraserVC, animated: false)
+    }
+    
+    private func showShare(_ counters: [Counter]) {
+        navigationController.present(
+            ShareUIComposer.shareComposedWith(counters),
+            animated: true
+        )
     }
 }
