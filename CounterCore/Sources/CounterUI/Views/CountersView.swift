@@ -37,13 +37,12 @@ final class CountersView: UIView {
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(CounterCell.self, forCellReuseIdentifier: "CounterCell")
+        tableView.register(CounterCell.self)
         tableView.backgroundColor = Layout.TableView.color
         tableView.estimatedRowHeight = Layout.TableView.estimatedRowHeight
         tableView.rowHeight = Layout.TableView.rowHeight
         tableView.separatorStyle = Layout.TableView.separatorStyle
         tableView.contentInset = Layout.TableView.contentInset
-        tableView.allowsMultipleSelection = true
         tableView.allowsMultipleSelectionDuringEditing = true
         return tableView
     }()
@@ -90,12 +89,12 @@ final class CountersView: UIView {
     
     @objc private func didTapOnEditButton(_ sender: UIBarButtonItem) {
         delegate?.countersViewDidBeginEditing(self)
-        tableView.setEditing(true, animated: true)
+//        tableView.setEditing(true, animated: true)
     }
     
     @objc private func didTapOnDoneButton(_ sender: UIBarButtonItem) {
         delegate?.countersViewDidEndEditing(self)
-        tableView.setEditing(false, animated: true)
+//        tableView.setEditing(false, animated: true)
     }
     
     @objc private func didTapOnSelectAllButton(_ sender: UIBarButtonItem) {

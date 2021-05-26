@@ -13,17 +13,17 @@ public final class CellController {
     let dataSource: UITableViewDataSource
     let delegate: UITableViewDelegate?
     
-    init(id: AnyHashable, dataSource: UITableViewDataSource, delegate: UITableViewDelegate? = nil) {
+    init(id: AnyHashable, dataSource: UITableViewDataSource) {
         self.id = id
         self.dataSource = dataSource
-        self.delegate = delegate
+        self.delegate = dataSource as? UITableViewDelegate
     }
 }
 
 extension CellController: Equatable {
     
     public static func == (lhs: CellController, rhs: CellController) -> Bool {
-        lhs.id == rhs.id
+        return lhs.id == rhs.id
     }
 }
 

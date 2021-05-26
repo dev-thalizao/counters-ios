@@ -56,10 +56,14 @@ final class CountersViewController: UIViewController {
     }
     
     private func configureContentView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = contentView.backgroundColor
         contentView.delegate = self
+        
+        contentView.tableView.allowsMultipleSelectionDuringEditing = true
+        
         contentView.tableView.dataSource = diffable.dataSource
         contentView.tableView.delegate = diffable
+        
     }
 }
 
@@ -71,7 +75,6 @@ extension CountersViewController: CountersViewDelegate {
         navigationItem.setLeftBarButton(view.doneButton, animated: true)
         navigationItem.setRightBarButton(view.selectAllButton, animated: true)
         setToolbarItems(view.toolbarEditItems(), animated: true)
-        setEditing(true, animated: true)
         contentView.tableView.setEditing(true, animated: true)
     }
     
@@ -79,7 +82,6 @@ extension CountersViewController: CountersViewDelegate {
         navigationItem.setLeftBarButton(view.editButton, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)
         setToolbarItems(view.toolbarDefaultItems(), animated: true)
-        setEditing(false, animated: true)
         contentView.tableView.setEditing(false, animated: true)
     }
     
@@ -98,6 +100,16 @@ extension CountersViewController: CountersViewDelegate {
         alertVC.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
         
         present(alertVC, animated: true)
+    }
+}
+
+// MARK: - InteractorLoadingView Methods
+
+extension CountersViewController: InteractorResourceView {
+    typealias InteractorResourceViewModel = CountersViewModel
+    
+    func display(viewModel: CountersViewModel) {
+        contentView.summaryLabel.text = viewModel.summary
     }
 }
 

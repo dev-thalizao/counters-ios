@@ -9,8 +9,14 @@ import Foundation
 import CounterCore
 
 public struct CounterViewModel: Hashable {
+    
     public let count: String
     public let title: String
+    
+    public init(count: String, title: String) {
+        self.count = count
+        self.title = title
+    }
 }
 
 public final class CounterPresenter {

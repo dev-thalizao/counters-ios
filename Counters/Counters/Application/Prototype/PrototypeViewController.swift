@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CounterUI
 
 final class PrototypeComposer {
     
@@ -47,7 +48,7 @@ final class PrototypeViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.register(PrototypeCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CounterCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsMultipleSelectionDuringEditing = true
@@ -96,11 +97,11 @@ extension PrototypeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PrototypeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CounterCell
         let item = items[indexPath.row]
-        cell.textLabel?.text = "\(item.count) - \(item.selected)"
-        cell.detailTextLabel?.text = indexPath.description
-        cell.accessoryView = UIStepper()
+        
+        cell.configure(with: .init(count: item.count.description, title: indexPath.description))
+        
         return cell
     }
 }

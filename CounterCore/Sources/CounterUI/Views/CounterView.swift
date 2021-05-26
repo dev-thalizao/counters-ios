@@ -89,8 +89,9 @@ final class CounterView: UIView {
             string: viewModel.title,
             attributes: [.kern: Layout.Title.kern]
         )
-//        counterStepper.isEnabled = viewModel.enabled
-//        onCounterStepperChanged = viewModel.onTap
+        
+        counterStepper.value = Double(viewModel.count) ?? 0
+        counterStepper.minimumValue = 0
     }
 }
 

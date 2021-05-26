@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let presenter = WelcomeViewPresenter()
 //        window.rootViewController = WelcomeViewController(presenter: presenter)
         
-        window.rootViewController = PrototypeComposer.prototype()
-//        window.rootViewController = navigationController
+//        window.rootViewController = PrototypeComposer.prototype()
+        window.rootViewController = navigationController
         
         self.window = window
         window.makeKeyAndVisible()

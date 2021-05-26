@@ -9,9 +9,9 @@ import UIKit
 
 final class DiffableDataSource: NSObject {
     
-    let dataSource: UITableViewDiffableDataSource<Int, CellController>
+    let dataSource: DataSource
     
-    private init(dataSource: UITableViewDiffableDataSource<Int, CellController>) {
+    private init(dataSource: DataSource) {
         self.dataSource = dataSource
     }
     
@@ -34,7 +34,7 @@ final class DiffableDataSource: NSObject {
 extension DiffableDataSource {
     
     static func diffable(with tableView: UITableView) -> DiffableDataSource {
-        let dataSource = UITableViewDiffableDataSource<Int, CellController>(tableView: tableView) { (tableView, index, controller) in
+        let dataSource = DataSource(tableView: tableView) { (tableView, index, controller) in
             controller.dataSource.tableView(tableView, cellForRowAt: index)
         }
         dataSource.defaultRowAnimation = .fade
@@ -48,13 +48,12 @@ extension DiffableDataSource: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
         let delegate = cellController(at: indexPath)?.delegate
-        return delegate?.tableView?(tableView, shouldBeginMultipleSelectionInteractionAt: indexPath) ?? true
+        return delegate?.tableView?(tableView, shouldBeginMultipleSelectionInteractionAt: indexPath) ?? false
     }
     
     func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
-//        let delegate = cellController(at: indexPath)?.delegate
-//        delegate?.tableView?(tableView, didBeginMultipleSelectionInteractionAt: indexPath)
-        tableView.setEditing(true, animated: true)
+        let delegate = cellController(at: indexPath)?.delegate
+        delegate?.tableView?(tableView, didBeginMultipleSelectionInteractionAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -75,5 +74,15 @@ extension DiffableDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let delegate = cellController(at: indexPath)?.delegate
         delegate?.tableView?(tableView, didDeselectRowAt: indexPath)
+    }
+}
+
+/**
+ * Inner datasource implementation just to turn on the multiple selection
+ */
+final class DataSource: UITableViewDiffableDataSource<Int, CellController> {
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }

@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import CounterPresentation
 
-final class CounterCell: UITableViewCell {
+public final class CounterCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -16,32 +17,43 @@ final class CounterCell: UITableViewCell {
         counterView.translatesAutoresizingMaskIntoConstraints = false
         return counterView
     }()
+    
+    private var editingValueObservation: NSKeyValueObservation?
 
     // MARK: - Initialization
     
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-////        setup()
-//    }
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+    }
 //    
-//    @available(*, unavailable)
-//    required init?(coder: NSCoder) { nil }
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { nil }
+    
+    public func configure(with viewModel: CounterViewModel) {
+        counterView.configure(with: viewModel)
+    }
 }
 
 // MARK: - ViewConfiguration Methods
 
 extension CounterCell: ViewConfiguration {
     
-    func setupViews() {
+    public func setupViews() {
         contentView.backgroundColor = Layout.Root.color
-        selectionStyle = .none
+        backgroundColor = Layout.Root.color
+        
+        editingValueObservation = observe(\.isEditing, options: [.new]) { (object, change) in
+            print(object)
+            print(change)
+        }
     }
     
-    func setupHierarchy() {
+    public func setupHierarchy() {
         contentView.addSubview(counterView)
     }
     
-    func setupConstraints() {
+    public func setupConstraints() {
         NSLayoutConstraint.activate([
             counterView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,

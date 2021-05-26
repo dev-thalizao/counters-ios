@@ -61,46 +61,61 @@ final class CounterViewAdapter: InteractorResourceView {
     }
     
     func display(viewModel: [Counter]) {
-        
-        let viewModels = viewModel.map { [counterIncrementer, counterDecrementer] model in
-            return CellController(
-                id: model,
-                dataSource: CounterCellController(
-                    viewModel: CounterPresenter.map(model),
-                    onIncrease: { controller in
-                        let adapter = IncrementerPresentationAdapter(loader: { [counterIncrementer] completion in
-                            counterIncrementer.increment(model.id) { result in
-                                completion(result.flatMap { counter -> Result<CounterViewModel, Error> in
-                                    return .success(CounterPresenter.map(counter))
-                                })
-                            }
-                        })
-                        
-                        adapter.presenter = InteractorPresenter(
-                            resourceView: WeakRefVirtualProxy(controller), loadingView: WeakRefVirtualProxy(controller), errorView: WeakRefVirtualProxy(controller)
-                        )
-                        
-                        adapter.load()
-                    },
-                    onDecrease: { controller in
-                        let adapter = IncrementerPresentationAdapter(loader: { [counterDecrementer] completion in
-                            counterDecrementer.decrement(model.id) { result in
-                                completion(result.flatMap { counter -> Result<CounterViewModel, Error> in
-                                    return .success(CounterPresenter.map(counter))
-                                })
-                            }
-                        })
-                        
-                        adapter.presenter = InteractorPresenter(
-                            resourceView: WeakRefVirtualProxy(controller), loadingView: WeakRefVirtualProxy(controller), errorView: WeakRefVirtualProxy(controller)
-                        )
-                        
-                        adapter.load()
-                    }
-                )
+        let viewModels = viewModel.map { model -> CellController in
+            let counterCell = CounterCellController(
+                viewModel: CounterPresenter.map(model),
+                onIncrease: onIncreaseAdapter(model),
+                onDecrease: onDecreaseAdapter(model)
             )
+            
+            return CellController(id: model, dataSource: counterCell)
         }
         
+        controller?.display(viewModel: CountersPresenter.map(viewModel))
         controller?.diffable.display(viewModels)
+    }
+    
+    private func onIncreaseAdapter(_ model: Counter) -> (CounterCellController) -> Void {
+        guard let view = controller else { return { _ in } }
+        
+        return { [model, incrementer = counterIncrementer, view] cell in
+            let adapter = IncrementerPresentationAdapter(loader: { [incrementer] completion in
+                incrementer.increment(model.id) { result in
+                    completion(result.flatMap { counter -> Result<CounterViewModel, Error> in
+                        return .success(CounterPresenter.map(counter))
+                    })
+                }
+            })
+            
+            adapter.presenter = InteractorPresenter(
+                resourceView: WeakRefVirtualProxy(cell),
+                loadingView: WeakRefVirtualProxy(cell),
+                errorView: WeakRefVirtualProxy(view)
+            )
+            
+            adapter.load()
+        }
+    }
+    
+    private func onDecreaseAdapter(_ model: Counter) -> (CounterCellController) -> Void {
+        guard let view = controller else { return { _ in } }
+        
+        return { [model, decrementer = counterDecrementer, view] cell in
+            let adapter = IncrementerPresentationAdapter(loader: { [decrementer] completion in
+                decrementer.decrement(model.id) { result in
+                    completion(result.flatMap { counter -> Result<CounterViewModel, Error> in
+                        return .success(CounterPresenter.map(counter))
+                    })
+                }
+            })
+            
+            adapter.presenter = InteractorPresenter(
+                resourceView: WeakRefVirtualProxy(cell),
+                loadingView: WeakRefVirtualProxy(cell),
+                errorView: WeakRefVirtualProxy(view)
+            )
+            
+            adapter.load()
+        }
     }
 }
