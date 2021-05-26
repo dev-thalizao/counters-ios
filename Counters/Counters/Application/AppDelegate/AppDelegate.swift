@@ -124,13 +124,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let createVC = CreateCounterUIComposer.createComposedWith(
             idGenerator: idGenerator,
             counterCreator: counterCreator,
-            onFinish: { $0.dismiss(animated: true) }
+            onFinish: { [navigationController] in
+                $0.dismiss(animated: true) {
+                    navigationController.topViewController?.viewWillAppear(true)
+                }
+            }
         )
         
         let createNC = UINavigationController(
             rootViewController: createVC
         )
-        createNC.modalPresentationStyle = .fullScreen
         
         navigationController.present(createNC, animated: true)
     }
@@ -140,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             counters: counters,
             counterEraser: counterEraser,
             onFinish: { [navigationController] in
-                navigationController.dismiss(animated: true) {
+                $0.dismiss(animated: true) {
                     navigationController.topViewController?.viewWillAppear(true)
                 }
             }

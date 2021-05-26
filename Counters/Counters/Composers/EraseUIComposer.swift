@@ -19,7 +19,7 @@ public final class EraseCountersUIComposer {
     public static func eraseComposedWith(
         counters: [Counter],
         counterEraser: CounterEraser,
-        onFinish: @escaping () -> Void
+        onFinish: @escaping (UIViewController) -> Void
     ) -> UIViewController {
         let controller = EraserViewController()
         
@@ -49,6 +49,7 @@ final class EraseViewControllerAdapter: InteractorResourceView {
     }
     
     func display(viewModel: Void) {
-        controller?.onFinish?()
+        guard let controller = controller else { return }
+        controller.onFinish?(controller)
     }
 }

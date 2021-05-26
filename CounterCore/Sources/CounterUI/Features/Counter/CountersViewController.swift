@@ -69,10 +69,12 @@ public final class CountersViewController: UIViewController {
     
     public func display(viewModel: CountersViewModel) {
         contentView.summaryLabel.text = viewModel.summary
+        contentView.summaryLabel.layoutIfNeeded()
     }
     
     public func display(viewModel: [CellController]) {
         diffable.display(viewModel)
+        countersViewDidEndEditing(contentView)
     }
 }
 

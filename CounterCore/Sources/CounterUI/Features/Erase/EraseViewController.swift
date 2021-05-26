@@ -9,10 +9,11 @@ import UIKit
 import CounterPresentation
 
 public final class EraserViewController: UIViewController {
-    public typealias Action = () -> Void
+    public typealias OnConfirm = () -> Void
+    public typealias OnFinish = (EraserViewController) -> Void
     
-    public var onConfirm: Action?
-    public var onFinish: Action?
+    public var onConfirm: OnConfirm?
+    public var onFinish: OnFinish?
     
     // MARK: - Lifecycle Methods
     
@@ -38,7 +39,8 @@ public final class EraserViewController: UIViewController {
             self?.onConfirm?()
         }))
         alertVC.addAction(.init(title: "Cancel", style: .cancel, handler: { [weak self] _ in
-            self?.onFinish?()
+            guard let self = self else { return }
+            self.onFinish?(self)
         }))
         
         present(alertVC, animated: true)
