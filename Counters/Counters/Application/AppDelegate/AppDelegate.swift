@@ -13,6 +13,7 @@ import CounterPresentation
 import CounterUI
 
 final class NullStore: CounterStore {
+    
     func retrieve() throws -> [Counter] {
         return []
     }
@@ -24,6 +25,8 @@ final class NullStore: CounterStore {
     func counter(with id: Counter.ID) throws -> Counter {
         throw NotFoundError()
     }
+    
+    func delete(with id: Counter.ID) throws {}
 }
 
 @main
@@ -70,9 +73,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }()
     
-    private lazy var counterDecremenetr: CounterDecrementer = {
+    private lazy var counterDecrementer: CounterDecrementer = {
         return MainQueueDispatchDecorator(
             decoratee: LocalCounterDecrementer(store: store)
+        )
+    }()
+    
+    private lazy var counterEraser: CounterEraser = {
+        return MainQueueDispatchDecorator(
+            decoratee: LocalCounterEraser(store: store)
         )
     }()
     
@@ -81,7 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             rootViewController: CounterUIComposer.counterComposedWith(
                 counterLoader: counterLoader,
                 counterIncrementer: counterIncrementer,
-                counterDecrementer: counterDecremenetr,
+                counterDecrementer: counterDecrementer,
+                counterEraser: counterEraser,
                 onAdd: showCreationPage
             )
         )

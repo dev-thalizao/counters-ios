@@ -12,6 +12,7 @@ final class CountersViewController: UIViewController {
     
     typealias OnRefresh = () -> Void
     typealias OnAdd = () -> Void
+    typealias OnErase = ([IndexPath]) -> Void
     
     private(set) lazy var contentView = CountersView()
     private(set) lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
@@ -20,6 +21,7 @@ final class CountersViewController: UIViewController {
     
     var onRefresh: OnRefresh?
     var onAdd: OnAdd?
+    var onErase: OnErase?
     
     // MARK: - View Lifecycle
     
@@ -95,8 +97,17 @@ extension CountersViewController: CountersViewDelegate {
     }
     
     func countersViewDidSendTrash(_ view: CountersView) {
+        guard
+            view.tableView.isEditing,
+            let indexPaths = view.tableView.indexPathsForSelectedRows,
+            !indexPaths.isEmpty
+        else { return }
+        
         let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertVC.addAction(.init(title: "Delete", style: .destructive, handler: nil))
+        alertVC.addAction(.init(title: "Delete", style: .destructive, handler: { [weak self] _ in
+            self?.onErase?(indexPaths)
+        }))
+        
         alertVC.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
         
         present(alertVC, animated: true)

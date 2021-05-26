@@ -61,7 +61,7 @@ final class DeleteCounterFromCacheUseCaseTests: XCTestCase {
         
         var receivedResult: Result<Void, Error>?
         
-        sut.erase("expect-id") { receivedResult = $0 }
+        sut.erase(["expect-id"]) { receivedResult = $0 }
         
         switch (receivedResult, expectedResult) {
         case (.success, .success):

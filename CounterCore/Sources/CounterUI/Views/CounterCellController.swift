@@ -43,6 +43,8 @@ extension CounterCellController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard !tableView.isEditing else { return }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

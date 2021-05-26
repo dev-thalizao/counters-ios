@@ -43,3 +43,12 @@ extension MainQueueDispatchDecorator: CounterDecrementer where T == CounterDecre
         }
     }
 }
+
+extension MainQueueDispatchDecorator: CounterEraser where T == CounterEraser {
+    
+    public func erase(_ ids: [Counter.ID], completion: @escaping (CounterEraser.Result) -> Void) {
+        decoratee.erase(ids) { [weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+}

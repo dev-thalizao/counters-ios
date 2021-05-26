@@ -10,5 +10,5 @@ import Foundation
 public protocol CounterEraser {
     typealias Result = Swift.Result<Void, Error>
     
-    func erase(_ id: Counter.ID, completion: @escaping (Result) -> Void)
+    func erase(_ ids: [Counter.ID], completion: @escaping (Result) -> Void)
 }

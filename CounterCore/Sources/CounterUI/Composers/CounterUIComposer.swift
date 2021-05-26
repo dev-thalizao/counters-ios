@@ -9,9 +9,10 @@ import UIKit
 import CounterCore
 import CounterPresentation
 
-private typealias LoaderPresentationAdapter = InteractorLoaderPresentationAdapter<[Counter], CounterViewAdapter>
+private typealias LoaderPresentationAdapter = InteractorLoaderPresentationAdapter<[Counter], LoaderViewAdapter>
 private typealias IncrementerPresentationAdapter = InteractorLoaderPresentationAdapter<CounterViewModel, WeakRefVirtualProxy<CounterCellController>>
 private typealias DecrementerPresentationAdapter = InteractorLoaderPresentationAdapter<CounterViewModel, WeakRefVirtualProxy<CounterCellController>>
+private typealias EraserPresentationAdapter = InteractorLoaderPresentationAdapter<Void, EraseViewAdapter>
 
 public final class CounterUIComposer {
     
@@ -21,6 +22,7 @@ public final class CounterUIComposer {
         counterLoader: CounterLoader,
         counterIncrementer: CounterIncrementer,
         counterDecrementer: CounterDecrementer,
+        counterEraser: CounterEraser,
         onAdd: @escaping () -> Void = {}
     ) -> UIViewController {
         let adapter = LoaderPresentationAdapter(loader: counterLoader.load)
@@ -28,10 +30,11 @@ public final class CounterUIComposer {
         controller.onRefresh = adapter.load
         
         adapter.presenter = InteractorPresenter(
-            resourceView: CounterViewAdapter(
+            resourceView: LoaderViewAdapter(
                 controller: controller,
                 counterIncrementer: counterIncrementer,
-                counterDecrementer: counterDecrementer
+                counterDecrementer: counterDecrementer,
+                counterEraser: counterEraser
             ),
             loadingView: WeakRefVirtualProxy(controller),
             errorView: WeakRefVirtualProxy(controller)
@@ -43,24 +46,32 @@ public final class CounterUIComposer {
     }
 }
 
-final class CounterViewAdapter: InteractorResourceView {
+final class LoaderViewAdapter: InteractorResourceView {
     
     private weak var controller: CountersViewController?
     
     private let counterIncrementer: CounterIncrementer
     private let counterDecrementer: CounterDecrementer
+    private let counterEraser: CounterEraser
+    private var currentCounters: [Counter]
     
     init(
         controller: CountersViewController,
         counterIncrementer: CounterIncrementer,
-        counterDecrementer: CounterDecrementer
+        counterDecrementer: CounterDecrementer,
+        counterEraser: CounterEraser,
+        currentCounters: [Counter] = []
     ) {
         self.controller = controller
         self.counterIncrementer = counterIncrementer
         self.counterDecrementer = counterDecrementer
+        self.counterEraser = counterEraser
+        self.currentCounters = currentCounters
     }
     
     func display(viewModel: [Counter]) {
+        self.currentCounters = viewModel
+        
         let viewModels = viewModel.map { model -> CellController in
             let counterCell = CounterCellController(
                 viewModel: CounterPresenter.map(model),
@@ -73,6 +84,7 @@ final class CounterViewAdapter: InteractorResourceView {
         
         controller?.display(viewModel: CountersPresenter.map(viewModel))
         controller?.diffable.display(viewModels)
+        controller?.onErase = onEraseAdapter(viewModel)
     }
     
     private func onIncreaseAdapter(_ model: Counter) -> (CounterCellController) -> Void {
@@ -117,5 +129,39 @@ final class CounterViewAdapter: InteractorResourceView {
             
             adapter.load()
         }
+    }
+    
+    private func onEraseAdapter(_ models: [Counter]) -> ([IndexPath]) -> Void {
+        guard let view = controller else { return { _ in } }
+        
+        return { [models, eraser = counterEraser, view] indexPaths in
+            
+            let ids = indexPaths.map({ models[$0.row] }).map(\.id)
+            
+            let adapter = EraserPresentationAdapter(loader: { [eraser, ids] completion in
+                eraser.erase(ids, completion: completion)
+            })
+            
+            adapter.presenter = InteractorPresenter(
+                resourceView: EraseViewAdapter(controller: view),
+                loadingView: WeakRefVirtualProxy(view),
+                errorView: WeakRefVirtualProxy(view)
+            )
+            
+            adapter.load()
+        }
+    }
+}
+
+final class EraseViewAdapter: InteractorResourceView {
+    
+    private weak var controller: CountersViewController?
+    
+    init(controller: CountersViewController) {
+        self.controller = controller
+    }
+    
+    func display(viewModel: Void) {
+        controller?.onRefresh?()
     }
 }

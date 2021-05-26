@@ -16,9 +16,9 @@ public final class LocalCounterEraser: CounterEraser {
         self.store = store
     }
     
-    public func erase(_ id: Counter.ID, completion: @escaping (CounterEraser.Result) -> Void) {
+    public func erase(_ ids: [Counter.ID], completion: @escaping (CounterEraser.Result) -> Void) {
         completion(Result {
-            try store.delete(with: id)
+            try ids.forEach(store.delete(with:))
         })
     }
 }
