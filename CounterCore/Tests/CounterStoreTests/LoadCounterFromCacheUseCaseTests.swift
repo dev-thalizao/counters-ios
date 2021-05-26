@@ -77,11 +77,11 @@ final class LoadCounterFromCacheUseCaseTests: XCTestCase {
         sut.load { receivedResult = $0 }
         
         switch (receivedResult, expectedResult) {
-        case let (.success(receivedImages), .success(expectedImages)):
-            XCTAssertEqual(receivedImages, expectedImages, file: file, line: line)
+        case let (.success(received), .success(expected)):
+            XCTAssertEqual(received, expected, file: file, line: line)
             
-        case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
-            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+        case let (.failure(received as NSError), .failure(expected as NSError)):
+            XCTAssertEqual(received, expected, file: file, line: line)
             
         default:
             XCTFail("Expected result \(expectedResult), got \(String(describing: receivedResult)) instead", file: file, line: line)

@@ -12,4 +12,5 @@ public protocol CounterStore {
     func retrieve() throws -> [Counter]
     func insert(_ counters: [Counter]) throws
     func counter(with id: Counter.ID) throws -> Counter
+    func delete(with id: Counter.ID) throws
 }

@@ -43,7 +43,7 @@ final class CoreDataCounterStoreTests: XCTestCase {
     func testCounterDeliversNotFoundErrorOnEmptyCache() {
         let sut = makeSUT()
         XCTAssertThrowsError(try sut.counter(with: "anyid")) { error in
-            XCTAssertEqual(error as NSError, ManagedCounter.NotFoundError() as NSError)
+            XCTAssertEqual(error as NSError, CoreDataCounterStore.StoreError.modelNotFound as NSError)
         }
     }
     
@@ -65,6 +65,19 @@ final class CoreDataCounterStoreTests: XCTestCase {
         insert([counter], to: sut)
         
         expect(sut, toRetrieve: .success([.init(id: "increase-id", title: "Counter to increase", count: 3)]))
+    }
+    
+    func testDeleteDeliversNotFoundErrorOnEmptyCache() {
+        let sut = makeSUT()
+        XCTAssertThrowsError(try sut.delete(with: "anyid")) { error in
+            XCTAssertEqual(error as NSError, CoreDataCounterStore.StoreError.modelNotFound as NSError)
+        }
+    }
+    
+    func testDeleteDeliversNoErrorOnFilledCache() {
+        let sut = makeSUT()
+        insert([.any(id: "cd-id")], to: sut)
+        XCTAssertNoThrow(try sut.delete(with: "cd-id"))
     }
     
     // MARK: - Helpers
