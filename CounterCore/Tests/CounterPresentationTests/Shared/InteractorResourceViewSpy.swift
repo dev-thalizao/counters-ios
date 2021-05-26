@@ -21,15 +21,17 @@ final class InteractorResourceViewSpy: InteractorResourceView, InteractorLoading
     
     private(set) var messages = [Message]()
     
-    func display(_ viewModel: InteractorLoadingViewModel) {
+    func display(viewModel: InteractorLoadingViewModel) {
         messages.append(.loading(isLoading: viewModel.isLoading))
     }
+    
+    typealias InteractorResourceViewModel = String
     
     func display(viewModel: String) {
         messages.append(.success(resource: viewModel))
     }
     
-    func display(_ viewModel: InteractorErrorViewModel) {
+    func display(viewModel: InteractorErrorViewModel) {
         messages.append(.error(reason: viewModel.reason))
     }
 }
