@@ -13,7 +13,7 @@ final class ShadowRoundedLayer: CALayer {
     
     private(set) lazy var shadowLayer: CALayer = {
         let contentLayer = CALayer()
-        contentLayer.shadowColor = Layout.Shadow.color
+        contentLayer.shadowColor = Layout.Shadow.color.cgColor
         contentLayer.shadowOpacity = Layout.Shadow.opacity
         contentLayer.shadowRadius = Layout.Shadow.radius
         contentLayer.shadowOffset = Layout.Shadow.offset
@@ -39,7 +39,7 @@ final class ShadowRoundedLayer: CALayer {
         shapeLayer.path = path.cgPath
         shapeLayer.bounds = bounds
         shapeLayer.position = bounds.center()
-        shapeLayer.fillColor = Layout.Shape.color
+        shapeLayer.fillColor = Layout.Shape.color.cgColor
     }
 }
 
@@ -48,15 +48,15 @@ private extension ShadowRoundedLayer {
     enum Layout {
         
         enum Shape {
-            static let radius = CGFloat(8)
-            static let color = UIColor.systemBackground.cgColor
+            static let radius: CGFloat = 8
+            static let color: UIColor = .secondarySystemGroupedBackground
         }
         
         enum Shadow {
             static let opacity: Float = 1
             static let radius: CGFloat = 16 // B
-            static let offset = CGSize(width: 0, height: 4) // X, Y
-            static let color = UIColor(white: 0, alpha: 0.02).cgColor // Color, Opacity
+            static let offset: CGSize = .init(width: 0, height: 4) // X, Y
+            static let color: UIColor = .init(white: 0, alpha: 0.08) // Color, Opacity
         }
     }
 }

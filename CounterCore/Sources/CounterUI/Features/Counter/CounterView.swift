@@ -142,8 +142,6 @@ extension CounterView: ViewConfiguration {
         
         layer.insertSublayer(shadowLayer, at: 0)
         layer.insertSublayer(shapeLayer, at: 1)
-        
-        shapeLayer.fillColor = Layout.Root.color
     }
     
     func setupLayers() {
@@ -156,6 +154,8 @@ extension CounterView: ViewConfiguration {
         shapeLayer.path = path.cgPath
         shapeLayer.bounds = bounds
         shapeLayer.position = bounds.center()
+        
+        shapeLayer.fillColor = Layout.Root.color.cgColor
     }
 }
 
@@ -167,7 +167,7 @@ private extension CounterView {
         
         enum Root {
             static let radius: CGFloat = 8
-            static let color = UIColor.systemBackground.cgColor
+            static let color: UIColor = .secondarySystemGroupedBackground
         }
     
         enum Counter {
@@ -183,7 +183,7 @@ private extension CounterView {
         enum Separator {
             static let width: CGFloat = 2
             static let left: CGFloat = 59
-            static let color = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
+            static let color: UIColor = .opaqueSeparator
         }
         
         enum Title {
@@ -204,7 +204,7 @@ private extension CounterView {
             static let opacity: Float = 1
             static let radius: CGFloat = 16 // B
             static let offset = CGSize(width: 0, height: 4) // X, Y
-            static let color = UIColor(white: 0, alpha: 0.02).cgColor // Color, Opacity
+            static let color = UIColor(white: 0, alpha: 0.08).cgColor // Color, Opacity
         }
     }
 }

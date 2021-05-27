@@ -17,8 +17,6 @@ public final class CounterCell: UITableViewCell {
         counterView.translatesAutoresizingMaskIntoConstraints = false
         return counterView
     }()
-    
-    private var editingValueObservation: NSKeyValueObservation?
 
     // MARK: - Initialization
     
@@ -26,7 +24,7 @@ public final class CounterCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
-//    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
     
@@ -42,11 +40,6 @@ extension CounterCell: ViewConfiguration {
     public func setupViews() {
         contentView.backgroundColor = Layout.Root.color
         backgroundColor = Layout.Root.color
-        
-        editingValueObservation = observe(\.isEditing, options: [.new]) { (object, change) in
-            print(object)
-            print(change)
-        }
     }
     
     public func setupHierarchy() {

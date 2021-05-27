@@ -150,12 +150,12 @@ extension CreateCounterView {
         }
         
         enum HintText {
-            static let top = CGFloat(8)
+            static let top = CGFloat(12)
             static let left = CGFloat(24)
             static let right = CGFloat(-24)
-            static let background = UIColor.systemGroupedBackground
-            static let font = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
-            static let color = UIColor(red: 0.533, green: 0.545, blue: 0.565, alpha: 1)
+            static let background = UIColor.clear
+            static let font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+            static let color = UIColor.tertiaryLabel
         }
     }
 }

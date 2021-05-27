@@ -99,7 +99,14 @@ final class LoadViewAdapter: InteractorResourceView {
         let cells = viewModel.map(onCounterAdapter)
         
         controller?.display(viewModel: summary)
-        controller?.display(viewModel: cells)
+        
+        if cells.isEmpty {
+            let starterView = CounterStarterView()
+            starterView.onCreate = controller?.onAdd
+            controller?.display(emptyView: starterView)
+        } else {
+            controller?.display(viewModel: cells)
+        }
     }
     
     private func onCounterAdapter(_ model: Counter) -> CellController {
@@ -169,7 +176,12 @@ final class LoadViewAdapter: InteractorResourceView {
         let cells = filteredCounters.map(onCounterAdapter)
         
         controller?.display(viewModel: summary)
-        controller?.display(viewModel: cells)
+        
+        if cells.isEmpty {
+            controller?.display(emptyView: NoResultsView())
+        } else {
+            controller?.display(viewModel: cells)
+        }
     }
 }
 
