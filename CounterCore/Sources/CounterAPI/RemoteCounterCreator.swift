@@ -16,7 +16,7 @@ public final class RemoteCounterCreator: CounterCreator {
         self.client = client
     }
     
-    public struct RemoteCounterError: Error {}
+    public struct CreatorError: Error {}
     
     public func create(_ request: CreateCounterRequest, completion: @escaping (CounterCreator.Result) -> Void) {
         let endpoint = CounterAPI.create(title: request.title).request()
@@ -27,7 +27,7 @@ public final class RemoteCounterCreator: CounterCreator {
                         .map(data, from: response)
                         .first(where: { $0.title == request.title })
                     else {
-                        throw RemoteCounterError()
+                        throw CreatorError()
                     }
                     
                     return .success(counter)
