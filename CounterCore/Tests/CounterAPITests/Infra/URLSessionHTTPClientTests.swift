@@ -1,7 +1,6 @@
 import XCTest
-import HTTPClient
 import CounterTests
-@testable import URLSessionHTTPClient
+@testable import CounterAPI
 
 final class URLSessionHTTPClientTests: XCTestCase {
 

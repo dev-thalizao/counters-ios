@@ -13,9 +13,7 @@ let package = Package(
         .library(name: "CounterStore", targets: ["CounterStore"]),
         .library(name: "CounterPresentation", targets: ["CounterPresentation"]),
         .library(name: "CounterUI", targets: ["CounterUI"]),
-        .library(name: "CounterTests", targets: ["CounterTests"]),
-        .library(name: "HTTPClient", targets: ["HTTPClient"]),
-        .library(name: "URLSessionHTTPClient", targets: ["URLSessionHTTPClient"]),
+        .library(name: "CounterTests", targets: ["CounterTests"])
     ],
     dependencies: [],
     targets: [
@@ -56,15 +54,6 @@ let package = Package(
             name: "CounterUITests",
             dependencies: ["CounterUI", "CounterTests"]
         ),
-        .target(name: "CounterTests"),
-        .target(name: "HTTPClient"),
-        .target(
-            name: "URLSessionHTTPClient",
-            dependencies: ["HTTPClient"]
-        ),
-        .testTarget(
-            name: "URLSessionHTTPClientTests",
-            dependencies: ["URLSessionHTTPClient", "CounterTests"]
-        ),
+        .target(name: "CounterTests")
     ]
 )
