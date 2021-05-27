@@ -61,6 +61,10 @@ extension CounterCellController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
         tableView.setEditing(true, animated: true)
     }
+    
+    public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return .init(actions: [])
+    }
 }
 
 // MARK: - InteractorLoadingView Methods

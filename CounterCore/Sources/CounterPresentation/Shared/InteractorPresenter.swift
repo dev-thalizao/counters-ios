@@ -37,7 +37,7 @@ public final class InteractorPresenter<Resource, View: InteractorResourceView> {
     
     func didStartLoading() {
         loadingView.display(viewModel: .init(isLoading: true))
-        errorView.display(viewModel: .init(reason: nil))
+        errorView.display(viewModel: .noError)
     }
     
     func didFinishLoading(with resource: Resource) {
@@ -51,6 +51,6 @@ public final class InteractorPresenter<Resource, View: InteractorResourceView> {
     
     func didFinishLoading(with error: Error) {
         loadingView.display(viewModel: .init(isLoading: false))
-        errorView.display(viewModel: .init(reason: error.localizedDescription))
+        errorView.display(viewModel: .error(error))
     }
 }

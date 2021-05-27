@@ -17,6 +17,7 @@
 		2B136EF5265EC4C50051BE7C /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EF4265EC4C50051BE7C /* MainQueueDispatchDecorator.swift */; };
 		2B136EFD265EC54C0051BE7C /* LoadCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */; };
 		2B136F02265EC60E0051BE7C /* CreateCounterUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F01265EC60E0051BE7C /* CreateCounterUIComposer.swift */; };
+		2B136F12265F199C0051BE7C /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F11265F199B0051BE7C /* NullStore.swift */; };
 		2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */; };
 		2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */; };
 		350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6D825E02D5E0000F698 /* WelcomeView.swift */; };
@@ -58,6 +59,7 @@
 		2B136EF4265EC4C50051BE7C /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCountersUIComposer.swift; sourceTree = "<group>"; };
 		2B136F01265EC60E0051BE7C /* CreateCounterUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCounterUIComposer.swift; sourceTree = "<group>"; };
+		2B136F11265F199B0051BE7C /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
 		2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Prototype.storyboard; sourceTree = "<group>"; };
 		2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypeViewController.swift; sourceTree = "<group>"; };
 		350AF6D825E02D5E0000F698 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			children = (
 				2B136EEF265EC4950051BE7C /* WeakRefVirtualProxy.swift */,
 				2B136EF4265EC4C50051BE7C /* MainQueueDispatchDecorator.swift */,
+				2B136F11265F199B0051BE7C /* NullStore.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 			files = (
 				35868D2825E03F090028AF1D /* WelcomeViewPresenter.swift in Sources */,
 				2B136EDF265EBDD00051BE7C /* ShareCountersUIComposer.swift in Sources */,
+				2B136F12265F199C0051BE7C /* NullStore.swift in Sources */,
 				2B136EFD265EC54C0051BE7C /* LoadCountersUIComposer.swift in Sources */,
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
 				2B136EE7265EC2140051BE7C /* EraseUIComposer.swift in Sources */,

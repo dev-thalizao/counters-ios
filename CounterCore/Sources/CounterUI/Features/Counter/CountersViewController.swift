@@ -12,6 +12,7 @@ public final class CountersViewController: UIViewController {
     public typealias Action = () -> Void
     public typealias OnErase = ([IndexPath]) -> Void
     public typealias OnShare = ([IndexPath]) -> Void
+    public typealias OnSearch = (String?) -> Void
     
     private lazy var contentView = CountersView()
     private lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
@@ -22,6 +23,7 @@ public final class CountersViewController: UIViewController {
     public var onAdd: Action?
     public var onErase: OnErase?
     public var onShare: OnShare?
+    public var onSearch: OnSearch?
     
     // MARK: - View Lifecycle
     
@@ -33,6 +35,7 @@ public final class CountersViewController: UIViewController {
         super.viewDidLoad()
         configureContentView()
         configureNavigationItem()
+        configureSearchController()
         configureToolbar()
     }
     
@@ -44,11 +47,17 @@ public final class CountersViewController: UIViewController {
     // MARK: - Private Methods
     
     private func configureNavigationItem() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = contentView.editButton
-        navigationItem.largeTitleDisplayMode = .always
-        
-        searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
+        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    private func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
     }
     
     private func configureToolbar() {
@@ -74,7 +83,10 @@ public final class CountersViewController: UIViewController {
     
     public func display(viewModel: [CellController]) {
         diffable.display(viewModel)
-        countersViewDidEndEditing(contentView)
+        
+        if contentView.tableView.isEditing {
+            countersViewDidEndEditing(contentView)
+        }
     }
 }
 
@@ -141,5 +153,27 @@ extension CountersViewController: InteractorErrorView {
         alertVC.addAction(.init(title: "Ok", style: .default, handler: nil))
         
         present(alertVC, animated: true)
+    }
+}
+
+// MARK: - UISearchResultsUpdating Methods
+
+extension CountersViewController: UISearchResultsUpdating {
+    
+    public func updateSearchResults(for searchController: UISearchController) {
+        onSearch?(searchController.searchBar.text)
+    }
+    
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        onSearch?(nil)
+    }
+}
+
+// MARK: - UISearchBarDelegate Methods
+
+extension CountersViewController: UISearchBarDelegate {
+    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

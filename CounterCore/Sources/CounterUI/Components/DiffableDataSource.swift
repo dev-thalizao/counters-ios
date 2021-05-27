@@ -75,13 +75,18 @@ extension DiffableDataSource: UITableViewDelegate {
         let delegate = cellController(at: indexPath)?.delegate
         delegate?.tableView?(tableView, didDeselectRowAt: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delegate = cellController(at: indexPath)?.delegate
+        return delegate?.tableView?(tableView, trailingSwipeActionsConfigurationForRowAt: indexPath)
+    }
 }
 
 /**
  * Inner datasource implementation just to turn on the multiple selection
  */
 final class DataSource: UITableViewDiffableDataSource<Int, CellController> {
-    
+        
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
