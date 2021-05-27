@@ -75,4 +75,3 @@ final class DeleteCounterFromCacheUseCaseTests: XCTestCase {
         }
     }
 }
-
