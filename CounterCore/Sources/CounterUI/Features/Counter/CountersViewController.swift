@@ -8,14 +8,14 @@
 import UIKit
 import CounterPresentation
 
-public final class CountersViewController: UIViewController {
+public final class CountersViewController: UITableViewController {
     public typealias Action = () -> Void
     public typealias OnErase = ([IndexPath]) -> Void
     public typealias OnShare = ([IndexPath]) -> Void
     public typealias OnSearch = (String?) -> Void
     
-    private lazy var contentView = CountersView()
-    private lazy var diffable = DiffableDataSource.diffable(with: contentView.tableView)
+    private lazy var countersControls = CountersControls()
+    private lazy var diffable = DiffableDataSource.diffable(with: tableView)
     
     private lazy var searchController = UISearchController(searchResultsController: nil)
     
@@ -26,14 +26,11 @@ public final class CountersViewController: UIViewController {
     public var onSearch: OnSearch?
     
     // MARK: - View Lifecycle
-    
-    public override func loadView() {
-        view = contentView
-    }
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        configureContentView()
+        configureTableView()
+        configureCountersControls()
         configureNavigationItem()
         configureSearchController()
         configureToolbar()
@@ -46,9 +43,21 @@ public final class CountersViewController: UIViewController {
     
     // MARK: - Private Methods
     
+    private func configureTableView() {
+        tableView.register(CounterCell.self)
+        tableView.backgroundColor = Layout.TableView.color
+        tableView.estimatedRowHeight = Layout.TableView.estimatedRowHeight
+        tableView.rowHeight = Layout.TableView.rowHeight
+        tableView.separatorStyle = Layout.TableView.separatorStyle
+        tableView.contentInset = Layout.TableView.contentInset
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.dataSource = diffable.dataSource
+        tableView.delegate = diffable
+    }
+    
     private func configureNavigationItem() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = contentView.editButton
+        navigationItem.leftBarButtonItem = countersControls.editButton
         navigationItem.searchController = searchController
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -61,75 +70,75 @@ public final class CountersViewController: UIViewController {
     }
     
     private func configureToolbar() {
-        setToolbarItems(contentView.toolbarDefaultItems(), animated: true)
+        setToolbarItems(countersControls.toolbarDefaultItems(), animated: true)
     }
     
-    private func configureContentView() {
-        view.backgroundColor = contentView.backgroundColor
-        contentView.delegate = self
-        
-        contentView.tableView.allowsMultipleSelectionDuringEditing = true
-        
-        contentView.tableView.dataSource = diffable.dataSource
-        contentView.tableView.delegate = diffable
+    private func configureCountersControls() {
+        countersControls.delegate = self
     }
     
     // MARK: - Public Methods
     
     public func display(viewModel: CountersViewModel) {
-        contentView.summaryLabel.text = viewModel.summary
-        contentView.summaryLabel.layoutIfNeeded()
+        countersControls.summaryLabel.text = viewModel.summary
+        countersControls.summaryLabel.layoutIfNeeded()
     }
     
     public func display(viewModel: [CellController]) {
         diffable.display(viewModel)
         
-        if contentView.tableView.isEditing {
-            countersViewDidEndEditing(contentView)
+        if tableView.isEditing {
+            countersControlsDidEndEditing(countersControls)
         }
     }
 }
 
 // MARK: - CountersViewDelegate Methods
 
-extension CountersViewController: CountersViewDelegate {
+extension CountersViewController: CountersControlsDelegate {
     
-    func countersViewDidBeginEditing(_ view: CountersView) {
-        navigationItem.setLeftBarButton(view.doneButton, animated: true)
-        navigationItem.setRightBarButton(view.selectAllButton, animated: true)
-        setToolbarItems(view.toolbarEditItems(), animated: true)
-        contentView.tableView.setEditing(true, animated: true)
+    func countersControlsDidBeginEditing(_ countersControls: CountersControls) {
+        navigationItem.setLeftBarButton(countersControls.doneButton, animated: true)
+        navigationItem.setRightBarButton(countersControls.selectAllButton, animated: true)
+        setToolbarItems(countersControls.toolbarEditItems(), animated: true)
+        tableView.setEditing(true, animated: true)
     }
     
-    func countersViewDidEndEditing(_ view: CountersView) {
-        navigationItem.setLeftBarButton(view.editButton, animated: true)
+    func countersControlsDidEndEditing(_ countersControls: CountersControls) {
+        navigationItem.setLeftBarButton(countersControls.editButton, animated: true)
         navigationItem.setRightBarButton(nil, animated: true)
-        setToolbarItems(view.toolbarDefaultItems(), animated: true)
-        contentView.tableView.setEditing(false, animated: true)
+        setToolbarItems(countersControls.toolbarDefaultItems(), animated: true)
+        tableView.setEditing(false, animated: true)
     }
     
-    func countersViewDidSendAdd(_ view: CountersView) {
+    func countersControlsDidSendAdd(_ countersControls: CountersControls) {
         onAdd?()
     }
     
-    func countersViewDidSendAction(_ view: CountersView) {
+    func countersControlsDidSendAction(_ countersControls: CountersControls) {
         guard
-            view.tableView.isEditing,
-            let indexPaths = view.tableView.indexPathsForSelectedRows,
+            tableView.isEditing,
+            let indexPaths = tableView.indexPathsForSelectedRows,
             !indexPaths.isEmpty
         else { return }
         
         onShare?(indexPaths)
     }
     
-    func countersViewDidSendTrash(_ view: CountersView) {
+    func countersControlsDidSendTrash(_ countersControls: CountersControls) {
         guard
-            view.tableView.isEditing,
-            let indexPaths = view.tableView.indexPathsForSelectedRows,
+            tableView.isEditing,
+            let indexPaths = tableView.indexPathsForSelectedRows,
             !indexPaths.isEmpty
         else { return }
         
         onErase?(indexPaths)
+    }
+    
+    func countersControlsDidSendSelectAll(_ countersControls: CountersControls) {
+        tableView.allIndexPaths.forEach {
+            tableView.selectRow(at: $0, animated: false, scrollPosition: .none)
+        }
     }
 }
 
@@ -138,7 +147,7 @@ extension CountersViewController: CountersViewDelegate {
 extension CountersViewController: InteractorLoadingView {
     
     public func display(viewModel: InteractorLoadingViewModel) {
-        contentView.tableView.refreshControl?.update(isRefreshing: viewModel.isLoading)
+        tableView.refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
 }
 
@@ -175,5 +184,21 @@ extension CountersViewController: UISearchBarDelegate {
     
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+
+// MARK: - Layout Constants
+
+extension CountersViewController {
+    
+    enum Layout {
+        
+        enum TableView {
+            static let color = UIColor.systemGroupedBackground
+            static let estimatedRowHeight = CGFloat(120)
+            static let rowHeight = UITableView.automaticDimension
+            static let separatorStyle = UITableViewCell.SeparatorStyle.none
+            static let contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        }
     }
 }
