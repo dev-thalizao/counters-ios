@@ -1,6 +1,6 @@
 //
-//  RemoteCounterIncrementer.swift
-//  
+//  RemoteCounterDecrementer.swift
+//
 //
 //  Created by Thales Frigo on 27/05/21.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import CounterCore
 
-public final class RemoteCounterIncrementer: CounterIncrementer {
+public final class RemoteCounterDecrementer: CounterDecrementer {
     
     private let client: HTTPClient
     
@@ -16,10 +16,10 @@ public final class RemoteCounterIncrementer: CounterIncrementer {
         self.client = client
     }
     
-    public struct IncrementerError: Error {}
+    public struct DecrementerError: Error {}
     
-    public func increment(_ id: Counter.ID, completion: @escaping (CounterIncrementer.Result) -> Void) {
-        let endpoint = CounterAPI.increment(id: id).request()
+    public func decrement(_ id: Counter.ID, completion: @escaping (CounterDecrementer.Result) -> Void) {
+        let endpoint = CounterAPI.decrement(id: id).request()
         client.execute(endpoint) { (result) in
             completion(result.flatMap({ (data, response) -> Result<Counter, Error> in
                 do {
@@ -27,7 +27,7 @@ public final class RemoteCounterIncrementer: CounterIncrementer {
                         .map(data, from: response)
                         .first(where: { $0.id == id })
                     else {
-                        throw IncrementerError()
+                        throw DecrementerError()
                     }
                     
                     return .success(counter)
