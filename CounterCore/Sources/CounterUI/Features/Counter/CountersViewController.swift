@@ -18,6 +18,7 @@ public final class CountersViewController: UITableViewController {
     private lazy var diffable = DiffableDataSource.diffable(with: tableView)
     
     private lazy var searchController = UISearchController(searchResultsController: nil)
+    private lazy var loadingController = LoadingViewController()
     
     public var onRefresh: Action?
     public var onAdd: Action?
@@ -53,6 +54,8 @@ public final class CountersViewController: UITableViewController {
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.dataSource = diffable.dataSource
         tableView.delegate = diffable
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
     private func configureNavigationItem() {
@@ -77,6 +80,12 @@ public final class CountersViewController: UITableViewController {
         countersControls.delegate = self
     }
     
+    // MARK: - Actions Methods
+    
+    @objc private func didPullToRefresh(_ sender: UIRefreshControl) {
+        onRefresh?()
+    }
+    
     // MARK: - Public Methods
     
     public func display(viewModel: CountersViewModel) {
@@ -85,7 +94,19 @@ public final class CountersViewController: UITableViewController {
     }
     
     public func display(viewModel: [CellController]) {
+        tableView.backgroundView = nil
+        
         diffable.display(viewModel)
+        
+        if tableView.isEditing {
+            countersControlsDidEndEditing(countersControls)
+        }
+    }
+    
+    public func display(emptyView: UIView) {
+        tableView.backgroundView = emptyView
+        
+        diffable.display([])
         
         if tableView.isEditing {
             countersControlsDidEndEditing(countersControls)
@@ -147,7 +168,16 @@ extension CountersViewController: CountersControlsDelegate {
 extension CountersViewController: InteractorLoadingView {
     
     public func display(viewModel: InteractorLoadingViewModel) {
-        tableView.refreshControl?.update(isRefreshing: viewModel.isLoading)
+        switch (viewModel.isLoading, tableView.allIndexPaths.isEmpty) {
+        case (true, true):
+            add(loadingController)
+        case (false, true):
+            loadingController.remove()
+        case (true, false):
+            tableView.refreshControl?.update(isRefreshing: true)
+        case (false, false):
+            tableView.refreshControl?.update(isRefreshing: false)
+        }
     }
 }
 
