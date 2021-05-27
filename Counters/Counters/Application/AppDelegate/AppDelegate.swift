@@ -12,25 +12,8 @@ import CounterStore
 import CounterPresentation
 import CounterUI
 
-final class NullStore: CounterStore {
-    
-    func retrieve() throws -> [Counter] {
-        return []
-    }
-    
-    func insert(_ counters: [Counter]) throws {}
-    
-    struct NotFoundError: Error {}
-    
-    func counter(with id: Counter.ID) throws -> Counter {
-        throw NotFoundError()
-    }
-    
-    func delete(with id: Counter.ID) throws {}
-}
-
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     

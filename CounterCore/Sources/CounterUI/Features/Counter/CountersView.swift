@@ -20,18 +20,15 @@ final class CountersView: UIView {
     // MARK: - Properties
     
     private(set) lazy var editButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapOnEditButton(_:)))
-        return barButton
+        return UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapOnEditButton(_:)))
     }()
     
     private(set) lazy var doneButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapOnDoneButton(_:)))
-        return barButton
+        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapOnDoneButton(_:)))
     }()
     
     private(set) lazy var selectAllButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(didTapOnSelectAllButton(_:)))
-        return barButton
+        return UIBarButtonItem(title: "Select All", style: .plain, target: self, action: #selector(didTapOnSelectAllButton(_:)))
     }()
     
     private(set) lazy var tableView: UITableView = {
@@ -64,13 +61,11 @@ final class CountersView: UIView {
     }()
     
     private(set) lazy var summaryButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(customView: summaryLabel)
-        return barButton
+        return UIBarButtonItem(customView: summaryLabel)
     }()
     
     private(set) lazy var addButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapOnAddButton(_:)))
-        return barButton
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapOnAddButton(_:)))
     }()
     
     weak var delegate: CountersViewDelegate?
@@ -89,12 +84,10 @@ final class CountersView: UIView {
     
     @objc private func didTapOnEditButton(_ sender: UIBarButtonItem) {
         delegate?.countersViewDidBeginEditing(self)
-//        tableView.setEditing(true, animated: true)
     }
     
     @objc private func didTapOnDoneButton(_ sender: UIBarButtonItem) {
         delegate?.countersViewDidEndEditing(self)
-//        tableView.setEditing(false, animated: true)
     }
     
     @objc private func didTapOnSelectAllButton(_ sender: UIBarButtonItem) {
@@ -145,7 +138,7 @@ extension CountersView: ViewConfiguration {
     func setupConstraints() {
         let guide = safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: guide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),

@@ -86,27 +86,30 @@ final class LoadViewAdapter: InteractorResourceView {
         self.onErase = onErase
         self.onShare = onShare
         self.currentCounters = currentCounters
+        
+        controller.onErase = onEraseAdapter
+        controller.onShare = onShareAdapter
+        controller.onSearch = onSearchAdapter
     }
     
     func display(viewModel: [Counter]) {
         self.currentCounters = viewModel
         
-        controller?.onErase = onEraseAdapter
-        controller?.onShare = onShareAdapter
-        
         let summary = CountersPresenter.map(viewModel)
-        let cells = viewModel.map { model -> CellController in
-            let counterCell = CounterCellController(
-                viewModel: CounterPresenter.map(model),
-                onIncrease: onIncreaseAdapter(model),
-                onDecrease: onDecreaseAdapter(model)
-            )
-            
-            return CellController(id: model, dataSource: counterCell)
-        }
+        let cells = viewModel.map(onCounterAdapter)
         
         controller?.display(viewModel: summary)
         controller?.display(viewModel: cells)
+    }
+    
+    private func onCounterAdapter(_ model: Counter) -> CellController {
+        let counterCell = CounterCellController(
+            viewModel: CounterPresenter.map(model),
+            onIncrease: onIncreaseAdapter(model),
+            onDecrease: onDecreaseAdapter(model)
+        )
+        
+        return CellController(id: model, dataSource: counterCell)
     }
     
     private func onIncreaseAdapter(_ model: Counter) -> (CounterCellController) -> Void {
@@ -151,5 +154,28 @@ final class LoadViewAdapter: InteractorResourceView {
     
     private func onShareAdapter(_ indexPaths: [IndexPath]) {
         onShare(indexPaths.map({ currentCounters[$0.row] }))
+    }
+    
+    private func onSearchAdapter(_ text: String?) {
+        guard let text = text, !text.isEmpty else {
+            return display(viewModel: currentCounters)
+        }
+        
+        let filteredCounters = currentCounters.filter { (counter) -> Bool in
+            return counter.searchKey.contains(text.lowercased())
+        }
+        
+        let summary = CountersPresenter.map(filteredCounters)
+        let cells = filteredCounters.map(onCounterAdapter)
+        
+        controller?.display(viewModel: summary)
+        controller?.display(viewModel: cells)
+    }
+}
+
+private extension Counter {
+    
+    var searchKey: String {
+        return "\(count);\(title)".lowercased()
     }
 }
