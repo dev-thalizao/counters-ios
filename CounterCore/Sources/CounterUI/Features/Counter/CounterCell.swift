@@ -39,7 +39,10 @@ extension CounterCell: ViewConfiguration {
     
     public func setupViews() {
         contentView.backgroundColor = Layout.Root.color
-        backgroundColor = Layout.Root.color
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Layout.Root.color
+        selectedBackgroundView = backgroundView
     }
     
     public func setupHierarchy() {

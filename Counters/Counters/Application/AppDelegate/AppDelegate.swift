@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import CounterCore
 import CounterStore
+import CounterAPI
 import CounterPresentation
 import CounterUI
 
@@ -38,33 +39,48 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }()
     
+    private lazy var client: HTTPClient = {
+        return URLSessionHTTPClient(session: .init(configuration: .ephemeral))
+    }()
+    
     private lazy var counterLoader: CounterLoader = {
+        let remote = RemoteCounterLoader(client: client)
+        let local = LocalCounterLoader(store: store)
+        
+        let decorated = FallbackCounterLoaderDecorator(
+            decoratee: CacheCounterLoaderDecorator(
+                decoratee: remote,
+                cache: local
+            ),
+            fallback: local
+        )
+        
         return MainQueueDispatchDecorator(
-            decoratee: LocalCounterLoader(store: store)
+            decoratee: decorated
         )
     }()
     
     private lazy var counterCreator: CounterCreator = {
         return MainQueueDispatchDecorator(
-            decoratee: LocalCounterCreator(store: store)
+            decoratee: RemoteCounterCreator(client: client)
         )
     }()
     
     private lazy var counterIncrementer: CounterIncrementer = {
         return MainQueueDispatchDecorator(
-            decoratee: LocalCounterIncrementer(store: store)
+            decoratee: RemoteCounterIncrementer(client: client)
         )
     }()
     
     private lazy var counterDecrementer: CounterDecrementer = {
         return MainQueueDispatchDecorator(
-            decoratee: LocalCounterDecrementer(store: store)
+            decoratee: RemoteCounterDecrementer(client: client)
         )
     }()
     
     private lazy var counterEraser: CounterEraser = {
         return MainQueueDispatchDecorator(
-            decoratee: LocalCounterEraser(store: store)
+            decoratee: RemoteCounterEraser(client: client)
         )
     }()
     
@@ -93,6 +109,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        window.rootViewController = PrototypeComposer.prototype()
         window.rootViewController = navigationController
+        window.tintColor = UIColor(named: "AccentColor")!
         
         self.window = window
         window.makeKeyAndVisible()

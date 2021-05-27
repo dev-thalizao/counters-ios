@@ -11,7 +11,7 @@ import CounterPresentation
 public final class CreateCounterViewController: UIViewController {
 
     public typealias OnFinish = (CreateCounterViewController) -> Void
-    public typealias OnSelect = (String) -> Void
+    public typealias OnSelect = (CreateCounterViewController, String) -> Void
     
     public var onFinish: OnFinish?
     public var onSelect: OnSelect?
@@ -47,7 +47,7 @@ extension CreateCounterViewController: CreateCounterViewDelegate {
     }
     
     func createCounterView(_ createCounterView: CreateCounterView, didSelectName name: String) {
-        onSelect?(name)
+        onSelect?(self, name)
     }
 }
 

@@ -24,18 +24,26 @@ enum CounterAPI {
             var components = URLComponents()
             components.scheme = Self.baseURL.scheme
             components.host = Self.baseURL.host
-            components.path = "/v1/counter"
+            components.port = Self.baseURL.port
+            components.path = Self.baseURL.path + "/v1/counters"
             
-            return URLRequest(url: components.url!)
+            var request = URLRequest(url: components.url!)
+            request.httpMethod = "GET"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            return request
             
         case let .create(title):
             var components = URLComponents()
             components.scheme = Self.baseURL.scheme
             components.host = Self.baseURL.host
-            components.path = "/v1/counter"
+            components.port = Self.baseURL.port
+            components.path = Self.baseURL.path + "/v1/counter"
             
             var request = URLRequest(url: components.url!)
             request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.httpBody = try! JSONSerialization.data(
                 withJSONObject: ["title": title],
                 options: []
@@ -47,10 +55,13 @@ enum CounterAPI {
             var components = URLComponents()
             components.scheme = Self.baseURL.scheme
             components.host = Self.baseURL.host
-            components.path = "/v1/counter/inc"
+            components.port = Self.baseURL.port
+            components.path = Self.baseURL.path + "/v1/counter/inc"
             
             var request = URLRequest(url: components.url!)
             request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.httpBody = try! JSONSerialization.data(
                 withJSONObject: ["id": id],
                 options: []
@@ -62,10 +73,13 @@ enum CounterAPI {
             var components = URLComponents()
             components.scheme = Self.baseURL.scheme
             components.host = Self.baseURL.host
-            components.path = "/v1/counter/dec"
+            components.port = Self.baseURL.port
+            components.path = Self.baseURL.path + "/v1/counter/dec"
             
             var request = URLRequest(url: components.url!)
             request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.httpBody = try! JSONSerialization.data(
                 withJSONObject: ["id": id],
                 options: []
@@ -77,10 +91,13 @@ enum CounterAPI {
             var components = URLComponents()
             components.scheme = Self.baseURL.scheme
             components.host = Self.baseURL.host
-            components.path = "/v1/counter"
+            components.port = Self.baseURL.port
+            components.path = Self.baseURL.path + "/v1/counter"
             
             var request = URLRequest(url: components.url!)
             request.httpMethod = "DELETE"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.httpBody = try! JSONSerialization.data(
                 withJSONObject: ["id": id],
                 options: []

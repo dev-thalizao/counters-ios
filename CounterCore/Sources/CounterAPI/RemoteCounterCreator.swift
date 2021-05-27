@@ -23,9 +23,10 @@ public final class RemoteCounterCreator: CounterCreator {
         client.execute(endpoint) { (result) in
             completion(result.flatMap({ (data, response) -> Result<Counter, Error> in
                 do {
-                    guard let counter = try CounterMapper
-                        .map(data, from: response)
-                        .first(where: { $0.title == request.title })
+                    let counters = try CounterMapper.map(data, from: response)
+                    
+                    guard
+                        let counter = counters.first(where: { $0.title == request.title })
                     else {
                         throw CreatorError()
                     }

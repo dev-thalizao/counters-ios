@@ -94,17 +94,16 @@ final class LoadViewAdapter: InteractorResourceView {
     
     func display(viewModel: [Counter]) {
         self.currentCounters = viewModel
-        
-        let summary = CountersPresenter.map(viewModel)
+
         let cells = viewModel.map(onCounterAdapter)
-        
-        controller?.display(viewModel: summary)
         
         if cells.isEmpty {
             let starterView = CounterStarterView()
             starterView.onCreate = controller?.onAdd
             controller?.display(emptyView: starterView)
+            controller?.display(viewModel: .empty)
         } else {
+            controller?.display(viewModel: CountersPresenter.map(viewModel))
             controller?.display(viewModel: cells)
         }
     }
@@ -172,15 +171,14 @@ final class LoadViewAdapter: InteractorResourceView {
             return counter.searchKey.contains(text.lowercased())
         }
         
-        let summary = CountersPresenter.map(filteredCounters)
         let cells = filteredCounters.map(onCounterAdapter)
-        
-        controller?.display(viewModel: summary)
         
         if cells.isEmpty {
             controller?.display(emptyView: NoResultsView())
+            controller?.display(viewModel: .empty)
         } else {
             controller?.display(viewModel: cells)
+            controller?.display(viewModel: CountersPresenter.map(filteredCounters))
         }
     }
 }

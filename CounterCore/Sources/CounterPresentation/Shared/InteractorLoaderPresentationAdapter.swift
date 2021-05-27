@@ -21,12 +21,12 @@ public final class InteractorLoaderPresentationAdapter<Resource, View: Interacto
     public func load() {
         presenter?.didStartLoading()
         
-        loader { [weak self] result in
+        loader { [presenter] result in
             switch result {
             case let .success(resource):
-                self?.presenter?.didFinishLoading(with: resource)
+                presenter?.didFinishLoading(with: resource)
             case let .failure(error):
-                self?.presenter?.didFinishLoading(with: error)
+                presenter?.didFinishLoading(with: error)
             }
         }
     }

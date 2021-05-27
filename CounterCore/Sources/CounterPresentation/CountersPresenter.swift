@@ -14,7 +14,7 @@ public struct CountersViewModel: Hashable {
 
 extension CountersViewModel {
     
-    static var empty: CountersViewModel {
+    public static var empty: CountersViewModel {
         return .init(summary: "")
     }
 }
@@ -42,10 +42,10 @@ public final class CountersPresenter {
         
         summary.append("· Counted \(total)")
         
-        total > 1
-            ? summary.append("times")
-            : summary.append("time")
-        
+        total == 1
+            ? summary.append("time")
+            : summary.append("times")
+            
         return CountersViewModel(summary: summary.joined(separator: " "))
     }
 }
