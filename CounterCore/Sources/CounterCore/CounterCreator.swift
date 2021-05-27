@@ -9,7 +9,7 @@ import Foundation
 
 public struct CreateCounterRequest {
 
-    public let id: Counter.ID
+    public let id: Counter.ID 
     public let title: String
     
     public init(id: Counter.ID, title: String) {
