@@ -14,7 +14,7 @@ protocol ExampleCountersViewControllerPresenter {
 }
 
 final class ExampleCountersViewController: UITableViewController {
-    typealias OnSelect = (ExampleCounterViewModel) -> Void
+    typealias OnSelect = (ExampleCountersViewController, ExampleCounterViewModel) -> Void
     
     private let presenter: ExampleCountersViewControllerPresenter
     
@@ -22,7 +22,8 @@ final class ExampleCountersViewController: UITableViewController {
         return ExampleCountersCellController(
             viewModels: presenter.viewModel.categories,
             selection: { [weak self] selectedViewModel in
-                self?.onSelect?(selectedViewModel)
+                guard let self = self else { return }
+                self.onSelect?(self, selectedViewModel)
             }
         )
     }()

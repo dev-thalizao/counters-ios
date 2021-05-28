@@ -46,11 +46,23 @@ final class CreateCounterView: UIView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = Layout.HintText.background
-        textView.font = Layout.HintText.font
-        textView.textColor = Layout.HintText.color
-        textView.attributedText = .init(string: "Give it a name. Creative block? See examples.", attributes: [.kern: 0.3])
+
+        let attributedString = NSMutableAttributedString(
+            attributedString: .init(
+                string: "Give it a name. Creative block? See examples.",
+                attributes: [
+                    .font: Layout.HintText.font,
+                    .kern: Layout.HintText.kern,
+                    .foregroundColor: Layout.HintText.color
+                ]
+            )
+        )
+        attributedString.setAsLink("examples", url: "counters://example", and: Layout.HintText.color)
+        textView.attributedText = attributedString
         textView.isScrollEnabled = false
-        textView.isSelectable = false
+        textView.isSelectable = true
+        textView.allowsEditingTextAttributes = false
+        textView.dataDetectorTypes = .link
         textView.isEditable = false
         return textView
     }()
@@ -93,6 +105,8 @@ final class CreateCounterView: UIView {
     }
 }
 
+// MARK: - ViewConfiguration Methods
+
 extension CreateCounterView: ViewConfiguration {
     
     func setupHierarchy() {
@@ -132,6 +146,8 @@ extension CreateCounterView: ViewConfiguration {
     }
 }
 
+// MARK: - Layout Constants
+
 private extension CreateCounterView {
     
     enum Layout {
@@ -157,8 +173,9 @@ private extension CreateCounterView {
             static let left = CGFloat(24)
             static let right = CGFloat(-24)
             static let background = UIColor.clear
-            static let font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
-            static let color = UIColor.tertiaryLabel
+            static let font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            static let color = UIColor.secondaryLabel
+            static let kern = CGFloat(0.3)
         }
     }
 }

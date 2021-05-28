@@ -10,11 +10,13 @@ import CounterPresentation
 
 public final class CreateCounterViewController: UIViewController {
 
+    public typealias OnSeeExamples = (CreateCounterViewController, @escaping (String) -> Void) -> Void
     public typealias OnFinish = (CreateCounterViewController) -> Void
     public typealias OnSelect = (CreateCounterViewController, String) -> Void
     
     public var onFinish: OnFinish?
     public var onSelect: OnSelect?
+    public var onSeeExamples: OnSeeExamples?
     
     private lazy var contentView = CreateCounterView()
     
@@ -28,13 +30,24 @@ public final class CreateCounterViewController: UIViewController {
         configureNavigationItem()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        contentView.textField.becomeFirstResponder()
+    }
+    
     private func configureContentView() {
         contentView.delegate = self
+        contentView.hintTextView.delegate = self
     }
     
     private func configureNavigationItem() {
         navigationItem.leftBarButtonItem = contentView.cancelButton
         navigationItem.rightBarButtonItem = contentView.saveButton
+    }
+    
+    private func input(text: String) {
+        contentView.textField.text = text
+        contentView.textField.sendActions(for: .editingChanged)
     }
 }
 
@@ -71,5 +84,17 @@ extension CreateCounterViewController: InteractorErrorView {
         alertVC.addAction(.init(title: "Ok", style: .default, handler: nil))
         
         present(alertVC, animated: true)
+    }
+}
+
+// MARK: - UITextViewDelegate Methods
+
+extension CreateCounterViewController: UITextViewDelegate {
+    
+    public func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        onSeeExamples?(self, input(text:))
+        
+        return false
     }
 }

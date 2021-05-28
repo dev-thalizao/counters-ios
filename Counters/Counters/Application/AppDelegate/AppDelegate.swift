@@ -107,10 +107,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let presenter = WelcomeViewPresenter()
 //        window.rootViewController = WelcomeViewController(presenter: presenter)
         
-        window.rootViewController = UINavigationController(
-            rootViewController: ExampleCountersUIComposer.examplesComposedWith(onSelect: { _ in })
-        )
-//        window.rootViewController = navigationController
+        window.rootViewController = navigationController
         window.tintColor = UIColor(named: "AccentColor")!
         
         self.window = window
@@ -130,12 +127,21 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 $0.dismiss(animated: true) {
                     navigationController.topViewController?.viewWillAppear(true)
                 }
+            },
+            onSeeExamples: { controller, input in
+                let exampleVC = ExampleCountersUIComposer.examplesComposedWith { [input] controller, selected in
+                    input(selected.name)
+                    controller.navigationController?.popViewController(animated: true)
+                }
+                controller.show(exampleVC, sender: nil)
             }
         )
         
         let createNC = UINavigationController(
             rootViewController: createVC
         )
+        createNC.navigationBar.prefersLargeTitles = true
+        createNC.modalPresentationStyle = .fullScreen
         
         navigationController.present(createNC, animated: true)
     }

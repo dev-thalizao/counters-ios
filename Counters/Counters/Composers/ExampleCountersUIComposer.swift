@@ -12,7 +12,7 @@ final class ExampleCountersUIComposer {
     private init() {}
     
     static func examplesComposedWith(
-        onSelect: @escaping (ExampleCounterViewModel) -> Void
+        onSelect: @escaping (UIViewController, ExampleCounterViewModel) -> Void
     ) -> UIViewController {
         let exampleVC = ExampleCountersViewController(
             presenter: ExampleCountersPresenter()
