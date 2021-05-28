@@ -4,7 +4,7 @@
   "description": "Toy backend for Cornershop's frontend/mobile tests",
   "main": "index.js",
   "scripts": {
-    "start" : "node index.js"
+    "start": "node index.js"
   },
   "author": "Osvaldo Mena",
   "license": "ISC",
