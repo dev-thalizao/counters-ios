@@ -13,3 +13,12 @@ extension UIActivityIndicatorView {
         isAnimating ? startAnimating() : stopAnimating()
     }
 }
+
+extension UIActivityIndicatorView {
+    
+    static func animating(style: UIActivityIndicatorView.Style = .large) -> UIActivityIndicatorView {
+        let spinner = UIActivityIndicatorView(style: style)
+        spinner.startAnimating()
+        return spinner
+    }
+}

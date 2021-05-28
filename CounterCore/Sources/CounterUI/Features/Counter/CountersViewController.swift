@@ -18,7 +18,6 @@ public final class CountersViewController: UITableViewController {
     private lazy var diffable = DiffableDataSource.diffable(with: tableView)
     
     private lazy var searchController = UISearchController(searchResultsController: nil)
-    private lazy var loadingController = LoadingViewController()
     
     public var onRefresh: Action?
     public var onAdd: Action?
@@ -170,23 +169,14 @@ extension CountersViewController: InteractorLoadingView {
     public func display(viewModel: InteractorLoadingViewModel) {
         switch (viewModel.isLoading, tableView.allIndexPaths.isEmpty) {
         case (true, true):
-            loadingController.isLoading = true
-            add(loadingController, with: loadingViewFrame())
+            tableView.backgroundView = UIActivityIndicatorView.animating()
         case (false, true):
-            loadingController.isLoading = false
-            loadingController.removeAnimated()
+            tableView.backgroundView = nil
         case (true, false):
             tableView.refreshControl?.update(isRefreshing: true)
         case (false, false):
             tableView.refreshControl?.update(isRefreshing: false)
         }
-    }
-    
-    private func loadingViewFrame() -> CGRect {
-        var frame = tableView.frame
-        frame.size.height -= (navigationController?.navigationBar.frame.height ?? 0)
-        frame.size.height -= (navigationController?.toolbar.frame.height ?? 0)
-        return frame
     }
 }
 

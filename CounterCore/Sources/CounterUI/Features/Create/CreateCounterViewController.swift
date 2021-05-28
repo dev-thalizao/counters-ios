@@ -69,6 +69,9 @@ extension CreateCounterViewController: CreateCounterViewDelegate {
 extension CreateCounterViewController: InteractorLoadingView {
     
     public func display(viewModel: InteractorLoadingViewModel) {
+        navigationItem.leftBarButtonItem?.isEnabled = !viewModel.isLoading
+        navigationItem.rightBarButtonItem?.isEnabled = !viewModel.isLoading
+        
         contentView.activityIndicator.update(isAnimating: viewModel.isLoading)
     }
 }
