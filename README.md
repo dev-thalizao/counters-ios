@@ -14,16 +14,28 @@ The architecture was built using the concepts of Clean Architecture and the SOLI
 - [CounterTests](./CounterCore/Sources/CounterTests): Add extra behaviours specific for unit tests.
 - [CounterApp](./Counter/Counter): The main module, that create features and inject the dependencies, control the navigation flow, add new behaviours trough decorators and adapters.
 
+https://user-images.githubusercontent.com/6041775/119925214-5d145c80-bf4b-11eb-9d7d-bf74593a998a.mov
+
+## Getting Started
+
+1. Install Xcode.
+2. Clone this repository.
+3. Open [Counters.xcworkspace](./Counters.xcworkspace):
+```bash
+open Counters.xcworkspace
+```
+> Xcode will do all the hard work for you 👨‍💻
+
 ## Features
 
-- Load counters;
-- Cache Counters;
-- Create Counter;
-- Increment Counters;
-- Decrement Counters;
-- Search Counters;
-- Erase Counters;
-- Share Counters;
+- Load counters
+- Cache Counters
+- Create Counter
+- Increment Counters
+- Decrement Counters
+- Search Counters
+- Erase Counters
+- Share Counters
 
 ## Non-functional features
 
@@ -37,5 +49,5 @@ The architecture was built using the concepts of Clean Architecture and the SOLI
 - Dark Mode
 - HTTP requests
 - Error Handling
-- CI using GitHub Actions
 - CoreData
+- CI using GitHub Actions
