@@ -12,7 +12,7 @@
 		2B136ECE265948A90051BE7C /* CounterStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136ECD265948A90051BE7C /* CounterStore */; };
 		2B136ED0265948A90051BE7C /* CounterUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136ECF265948A90051BE7C /* CounterUI */; };
 		2B136EDF265EBDD00051BE7C /* ShareCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EDE265EBDD00051BE7C /* ShareCountersUIComposer.swift */; };
-		2B136EE7265EC2140051BE7C /* EraseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EE6265EC2140051BE7C /* EraseUIComposer.swift */; };
+		2B136EE7265EC2140051BE7C /* EraseCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EE6265EC2140051BE7C /* EraseCountersUIComposer.swift */; };
 		2B136EF0265EC4950051BE7C /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EEF265EC4950051BE7C /* WeakRefVirtualProxy.swift */; };
 		2B136EF5265EC4C50051BE7C /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EF4265EC4C50051BE7C /* MainQueueDispatchDecorator.swift */; };
 		2B136EFD265EC54C0051BE7C /* LoadCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */; };
@@ -21,13 +21,22 @@
 		2B136F2426601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F2326601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift */; };
 		2B136F2926601E290051BE7C /* CacheCounterLoaderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F2826601E290051BE7C /* CacheCounterLoaderDecorator.swift */; };
 		2B136F312660231B0051BE7C /* CounterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136F302660231B0051BE7C /* CounterAPI */; };
-		2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */; };
-		2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */; };
+		2B136F40266044B10051BE7C /* ExampleCountersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F3F266044B10051BE7C /* ExampleCountersViewController.swift */; };
+		2B136F4E266053B30051BE7C /* ExampleCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F4D266053B30051BE7C /* ExampleCountersUIComposer.swift */; };
+		2B136F54266053ED0051BE7C /* ExampleCountersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F53266053ED0051BE7C /* ExampleCountersPresenter.swift */; };
+		2B136F5D266054340051BE7C /* ExampleCountersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F5C266054340051BE7C /* ExampleCountersViewModel.swift */; };
+		2B136F622660545F0051BE7C /* ExampleCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F612660545F0051BE7C /* ExampleCounterView.swift */; };
+		2B136F67266054860051BE7C /* ExampleCounterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F66266054860051BE7C /* ExampleCounterCollectionCell.swift */; };
+		2B136F6C266054B30051BE7C /* ExampleCounterTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F6B266054B30051BE7C /* ExampleCounterTableCell.swift */; };
+		2B136F71266054F50051BE7C /* ExampleCountersCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F70266054F50051BE7C /* ExampleCountersCellController.swift */; };
+		2B136F76266055390051BE7C /* ExampleCounterHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F75266055390051BE7C /* ExampleCounterHintView.swift */; };
+		2B136F7C266074E90051BE7C /* ExampleCounterSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F7B266074E90051BE7C /* ExampleCounterSectionView.swift */; };
+		2B24867926608D1E0060F121 /* WelcomeCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24867826608D1E0060F121 /* WelcomeCountersUIComposer.swift */; };
+		2B24867E26608DA40060F121 /* UserDefaults+Onboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24867D26608DA40060F121 /* UserDefaults+Onboard.swift */; };
 		350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6D825E02D5E0000F698 /* WelcomeView.swift */; };
 		350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6E325E035840000F698 /* WelcomeFeatureView.swift */; };
 		350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */; };
 		35868D2825E03F090028AF1D /* WelcomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35868D2725E03F090028AF1D /* WelcomeViewPresenter.swift */; };
-		35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 35EAFB7825CC9E3B00DCFE10 /* Networking.m */; };
 		DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3EBACB25E048CE00DA1E0D /* Button.swift */; };
 		DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256B25CC8D4200851431 /* AppDelegate.swift */; };
 		DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA256F25CC8D4200851431 /* WelcomeViewController.swift */; };
@@ -57,7 +66,7 @@
 
 /* Begin PBXFileReference section */
 		2B136EDE265EBDD00051BE7C /* ShareCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCountersUIComposer.swift; sourceTree = "<group>"; };
-		2B136EE6265EC2140051BE7C /* EraseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseUIComposer.swift; sourceTree = "<group>"; };
+		2B136EE6265EC2140051BE7C /* EraseCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseCountersUIComposer.swift; sourceTree = "<group>"; };
 		2B136EEF265EC4950051BE7C /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		2B136EF4265EC4C50051BE7C /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCountersUIComposer.swift; sourceTree = "<group>"; };
@@ -65,15 +74,23 @@
 		2B136F11265F199B0051BE7C /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
 		2B136F2326601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackCounterLoaderDecorator.swift; sourceTree = "<group>"; };
 		2B136F2826601E290051BE7C /* CacheCounterLoaderDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheCounterLoaderDecorator.swift; sourceTree = "<group>"; };
-		2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Prototype.storyboard; sourceTree = "<group>"; };
-		2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypeViewController.swift; sourceTree = "<group>"; };
+		2B136F3F266044B10051BE7C /* ExampleCountersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCountersViewController.swift; sourceTree = "<group>"; };
+		2B136F4D266053B30051BE7C /* ExampleCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCountersUIComposer.swift; sourceTree = "<group>"; };
+		2B136F53266053ED0051BE7C /* ExampleCountersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCountersPresenter.swift; sourceTree = "<group>"; };
+		2B136F5C266054340051BE7C /* ExampleCountersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCountersViewModel.swift; sourceTree = "<group>"; };
+		2B136F612660545F0051BE7C /* ExampleCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterView.swift; sourceTree = "<group>"; };
+		2B136F66266054860051BE7C /* ExampleCounterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterCollectionCell.swift; sourceTree = "<group>"; };
+		2B136F6B266054B30051BE7C /* ExampleCounterTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterTableCell.swift; sourceTree = "<group>"; };
+		2B136F70266054F50051BE7C /* ExampleCountersCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCountersCellController.swift; sourceTree = "<group>"; };
+		2B136F75266055390051BE7C /* ExampleCounterHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterHintView.swift; sourceTree = "<group>"; };
+		2B136F7B266074E90051BE7C /* ExampleCounterSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterSectionView.swift; sourceTree = "<group>"; };
+		2B24867826608D1E0060F121 /* WelcomeCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCountersUIComposer.swift; sourceTree = "<group>"; };
+		2B24867D26608DA40060F121 /* UserDefaults+Onboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Onboard.swift"; sourceTree = "<group>"; };
 		350AF6D825E02D5E0000F698 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		350AF6E325E035840000F698 /* WelcomeFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFeatureView.swift; sourceTree = "<group>"; };
 		350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Badge.swift"; sourceTree = "<group>"; };
 		35868D2725E03F090028AF1D /* WelcomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewPresenter.swift; sourceTree = "<group>"; };
 		35EAFB7625CC9E3A00DCFE10 /* Counters-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Counters-Bridging-Header.h"; sourceTree = "<group>"; };
-		35EAFB7725CC9E3B00DCFE10 /* Networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
-		35EAFB7825CC9E3B00DCFE10 /* Networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Networking.m; sourceTree = "<group>"; };
 		DE3EBACB25E048CE00DA1E0D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		DECA256825CC8D4200851431 /* Counters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECA256B25CC8D4200851431 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,9 +148,11 @@
 			isa = PBXGroup;
 			children = (
 				2B136EDE265EBDD00051BE7C /* ShareCountersUIComposer.swift */,
-				2B136EE6265EC2140051BE7C /* EraseUIComposer.swift */,
+				2B136EE6265EC2140051BE7C /* EraseCountersUIComposer.swift */,
 				2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */,
 				2B136F01265EC60E0051BE7C /* CreateCounterUIComposer.swift */,
+				2B136F4D266053B30051BE7C /* ExampleCountersUIComposer.swift */,
+				2B24867826608D1E0060F121 /* WelcomeCountersUIComposer.swift */,
 			);
 			path = Composers;
 			sourceTree = "<group>";
@@ -150,13 +169,28 @@
 			path = Infrastructure;
 			sourceTree = "<group>";
 		};
-		2BC398E32656E46900F541D0 /* Prototype */ = {
+		2B136F3E266044200051BE7C /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */,
-				2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */,
+				2B136F52266053D00051BE7C /* Views */,
+				2B136F3F266044B10051BE7C /* ExampleCountersViewController.swift */,
+				2B136F53266053ED0051BE7C /* ExampleCountersPresenter.swift */,
+				2B136F5C266054340051BE7C /* ExampleCountersViewModel.swift */,
+				2B136F70266054F50051BE7C /* ExampleCountersCellController.swift */,
 			);
-			path = Prototype;
+			path = Example;
+			sourceTree = "<group>";
+		};
+		2B136F52266053D00051BE7C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2B136F612660545F0051BE7C /* ExampleCounterView.swift */,
+				2B136F66266054860051BE7C /* ExampleCounterCollectionCell.swift */,
+				2B136F6B266054B30051BE7C /* ExampleCounterTableCell.swift */,
+				2B136F75266055390051BE7C /* ExampleCounterHintView.swift */,
+				2B136F7B266074E90051BE7C /* ExampleCounterSectionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		350AF6E225E035750000F698 /* Views */ = {
@@ -171,25 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */,
+				2B24867D26608DA40060F121 /* UserDefaults+Onboard.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		35EAFB7425CC9E0800DCFE10 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				35EAFB7525CC9E1F00DCFE10 /* Networking */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		35EAFB7525CC9E1F00DCFE10 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				35EAFB7725CC9E3B00DCFE10 /* Networking.h */,
-				35EAFB7825CC9E3B00DCFE10 /* Networking.m */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		DE3EBACA25E048C200DA1E0D /* UIComponents */ = {
@@ -255,9 +273,8 @@
 		DECA25AA25CC8FD600851431 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				2BC398E32656E46900F541D0 /* Prototype */,
+				2B136F3E266044200051BE7C /* Example */,
 				35868D2F25E0522E0028AF1D /* Extensions */,
-				35EAFB7425CC9E0800DCFE10 /* Services */,
 				DECA25AE25CC908800851431 /* AppDelegate */,
 				DECA25AD25CC906700851431 /* Launch */,
 				DECA25B225CC910100851431 /* Welcome */,
@@ -422,7 +439,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECA257825CC8D4300851431 /* LaunchScreen.storyboard in Resources */,
-				2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */,
 				DEED7FCE25CC975D00BA0CDB /* Localizable.strings in Resources */,
 				DECA257525CC8D4300851431 /* Assets.xcassets in Resources */,
 			);
@@ -449,24 +465,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B136F5D266054340051BE7C /* ExampleCountersViewModel.swift in Sources */,
 				35868D2825E03F090028AF1D /* WelcomeViewPresenter.swift in Sources */,
 				2B136EDF265EBDD00051BE7C /* ShareCountersUIComposer.swift in Sources */,
+				2B136F622660545F0051BE7C /* ExampleCounterView.swift in Sources */,
 				2B136F12265F199C0051BE7C /* NullStore.swift in Sources */,
 				2B136EFD265EC54C0051BE7C /* LoadCountersUIComposer.swift in Sources */,
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
-				2B136EE7265EC2140051BE7C /* EraseUIComposer.swift in Sources */,
+				2B136F54266053ED0051BE7C /* ExampleCountersPresenter.swift in Sources */,
+				2B24867E26608DA40060F121 /* UserDefaults+Onboard.swift in Sources */,
+				2B136EE7265EC2140051BE7C /* EraseCountersUIComposer.swift in Sources */,
+				2B136F71266054F50051BE7C /* ExampleCountersCellController.swift in Sources */,
 				DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */,
 				2B136EF5265EC4C50051BE7C /* MainQueueDispatchDecorator.swift in Sources */,
 				DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */,
-				2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */,
+				2B136F76266055390051BE7C /* ExampleCounterHintView.swift in Sources */,
 				2B136F2926601E290051BE7C /* CacheCounterLoaderDecorator.swift in Sources */,
 				2B136F02265EC60E0051BE7C /* CreateCounterUIComposer.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
-				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
+				2B136F6C266054B30051BE7C /* ExampleCounterTableCell.swift in Sources */,
+				2B136F7C266074E90051BE7C /* ExampleCounterSectionView.swift in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
+				2B136F40266044B10051BE7C /* ExampleCountersViewController.swift in Sources */,
+				2B24867926608D1E0060F121 /* WelcomeCountersUIComposer.swift in Sources */,
 				2B136F2426601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift in Sources */,
+				2B136F4E266053B30051BE7C /* ExampleCountersUIComposer.swift in Sources */,
 				2B136EF0265EC4950051BE7C /* WeakRefVirtualProxy.swift in Sources */,
 				350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */,
+				2B136F67266054860051BE7C /* ExampleCounterCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

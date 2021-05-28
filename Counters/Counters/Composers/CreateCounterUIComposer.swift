@@ -19,11 +19,13 @@ public final class CreateCounterUIComposer {
     public static func createComposedWith(
         idGenerator: @escaping () -> Counter.ID,
         counterCreator: CounterCreator,
-        onFinish: @escaping (UIViewController) -> Void
+        onFinish: @escaping (UIViewController) -> Void,
+        onSeeExamples: @escaping (UIViewController, @escaping (String) -> Void) -> Void
     ) -> UIViewController {
         let controller = CreateCounterViewController()
         controller.title = CreateCounterPresenter.title
         
+        controller.onSeeExamples = onSeeExamples
         controller.onFinish = onFinish
         controller.onSelect = { [counterCreator] controller, name in
             let adapter = CreatePresentationAdapter(loader: { completion in
@@ -38,6 +40,8 @@ public final class CreateCounterUIComposer {
             
             adapter.load()
         }
+        
+        
         
         return controller
     }

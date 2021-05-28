@@ -64,7 +64,11 @@ extension EraserViewController: InteractorErrorView {
         guard let reason = viewModel.reason else { return }
         
         let alertVC = UIAlertController(title: "Ops", message: reason, preferredStyle: .alert)
-        alertVC.addAction(.init(title: "Ok", style: .default, handler: nil))
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel) { [weak self] _ in
+            guard let self = self else { return }
+            self.onFinish?(self)
+        }
+        alertVC.addAction(dismissAction)
         
         present(alertVC, animated: true)
     }
