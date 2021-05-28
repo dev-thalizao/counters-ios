@@ -18,6 +18,9 @@
 		2B136EFD265EC54C0051BE7C /* LoadCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */; };
 		2B136F02265EC60E0051BE7C /* CreateCounterUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F01265EC60E0051BE7C /* CreateCounterUIComposer.swift */; };
 		2B136F12265F199C0051BE7C /* NullStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F11265F199B0051BE7C /* NullStore.swift */; };
+		2B136F2426601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F2326601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift */; };
+		2B136F2926601E290051BE7C /* CacheCounterLoaderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F2826601E290051BE7C /* CacheCounterLoaderDecorator.swift */; };
+		2B136F312660231B0051BE7C /* CounterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2B136F302660231B0051BE7C /* CounterAPI */; };
 		2B3AB24A2656DF4F00DBB886 /* Prototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */; };
 		2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */; };
 		350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6D825E02D5E0000F698 /* WelcomeView.swift */; };
@@ -60,6 +63,8 @@
 		2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCountersUIComposer.swift; sourceTree = "<group>"; };
 		2B136F01265EC60E0051BE7C /* CreateCounterUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCounterUIComposer.swift; sourceTree = "<group>"; };
 		2B136F11265F199B0051BE7C /* NullStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullStore.swift; sourceTree = "<group>"; };
+		2B136F2326601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackCounterLoaderDecorator.swift; sourceTree = "<group>"; };
+		2B136F2826601E290051BE7C /* CacheCounterLoaderDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheCounterLoaderDecorator.swift; sourceTree = "<group>"; };
 		2B3AB2492656DF4F00DBB886 /* Prototype.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Prototype.storyboard; sourceTree = "<group>"; };
 		2BC398E72656E48A00F541D0 /* PrototypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrototypeViewController.swift; sourceTree = "<group>"; };
 		350AF6D825E02D5E0000F698 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -92,6 +97,7 @@
 			files = (
 				2B136ECE265948A90051BE7C /* CounterStore in Frameworks */,
 				2B136ECA265948A90051BE7C /* CounterCore in Frameworks */,
+				2B136F312660231B0051BE7C /* CounterAPI in Frameworks */,
 				2B136ECC265948A90051BE7C /* CounterPresentation in Frameworks */,
 				2B136ED0265948A90051BE7C /* CounterUI in Frameworks */,
 			);
@@ -138,6 +144,8 @@
 				2B136EEF265EC4950051BE7C /* WeakRefVirtualProxy.swift */,
 				2B136EF4265EC4C50051BE7C /* MainQueueDispatchDecorator.swift */,
 				2B136F11265F199B0051BE7C /* NullStore.swift */,
+				2B136F2326601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift */,
+				2B136F2826601E290051BE7C /* CacheCounterLoaderDecorator.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -323,6 +331,7 @@
 				2B136ECB265948A90051BE7C /* CounterPresentation */,
 				2B136ECD265948A90051BE7C /* CounterStore */,
 				2B136ECF265948A90051BE7C /* CounterUI */,
+				2B136F302660231B0051BE7C /* CounterAPI */,
 			);
 			productName = Counters;
 			productReference = DECA256825CC8D4200851431 /* Counters.app */;
@@ -450,10 +459,12 @@
 				2B136EF5265EC4C50051BE7C /* MainQueueDispatchDecorator.swift in Sources */,
 				DECA256C25CC8D4200851431 /* AppDelegate.swift in Sources */,
 				2BC398E82656E48A00F541D0 /* PrototypeViewController.swift in Sources */,
+				2B136F2926601E290051BE7C /* CacheCounterLoaderDecorator.swift in Sources */,
 				2B136F02265EC60E0051BE7C /* CreateCounterUIComposer.swift in Sources */,
 				DE3EBACC25E048CE00DA1E0D /* Button.swift in Sources */,
 				35EAFB7925CC9E3B00DCFE10 /* Networking.m in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
+				2B136F2426601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift in Sources */,
 				2B136EF0265EC4950051BE7C /* WeakRefVirtualProxy.swift in Sources */,
 				350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */,
 			);
@@ -804,6 +815,10 @@
 		2B136ECF265948A90051BE7C /* CounterUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CounterUI;
+		};
+		2B136F302660231B0051BE7C /* CounterAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CounterAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

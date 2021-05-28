@@ -90,7 +90,7 @@ public final class CountersViewController: UITableViewController {
     
     public func display(viewModel: CountersViewModel) {
         countersControls.summaryLabel.text = viewModel.summary
-        countersControls.summaryLabel.layoutIfNeeded()
+        countersControls.summaryLabel.sizeToFit()
     }
     
     public func display(viewModel: [CellController]) {
@@ -170,14 +170,23 @@ extension CountersViewController: InteractorLoadingView {
     public func display(viewModel: InteractorLoadingViewModel) {
         switch (viewModel.isLoading, tableView.allIndexPaths.isEmpty) {
         case (true, true):
-            add(loadingController)
+            loadingController.isLoading = true
+            add(loadingController, with: loadingViewFrame())
         case (false, true):
-            loadingController.remove()
+            loadingController.isLoading = false
+            loadingController.removeAnimated()
         case (true, false):
             tableView.refreshControl?.update(isRefreshing: true)
         case (false, false):
             tableView.refreshControl?.update(isRefreshing: false)
         }
+    }
+    
+    private func loadingViewFrame() -> CGRect {
+        var frame = tableView.frame
+        frame.size.height -= (navigationController?.navigationBar.frame.height ?? 0)
+        frame.size.height -= (navigationController?.toolbar.frame.height ?? 0)
+        return frame
     }
 }
 

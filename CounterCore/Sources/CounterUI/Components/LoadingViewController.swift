@@ -42,7 +42,6 @@ final class LoadingViewController: UIViewController, ViewConfiguration {
     }
     
     func setupViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGroupedBackground
     }
 }
-

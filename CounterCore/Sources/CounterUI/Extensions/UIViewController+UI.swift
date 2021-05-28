@@ -11,11 +11,11 @@ import UIKit
 
 extension UIViewController {
     
-    func add(_ child: UIViewController) {
+    func add(_ child: UIViewController, with frame: CGRect? = nil) {
         addChild(child)
         view.addSubview(child.view)
         
-        child.view.frame = view.bounds
+        child.view.frame = frame ?? view.bounds
         child.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         child.didMove(toParent: self)
@@ -27,5 +27,18 @@ extension UIViewController {
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()
+    }
+    
+    public func removeAnimated() {
+        guard parent != nil else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.35, animations: { [weak self] in
+            self?.view.alpha = 0
+        }) { [weak self] (completion) in
+            self?.remove()
+            self?.view.alpha = 1
+        }
     }
 }

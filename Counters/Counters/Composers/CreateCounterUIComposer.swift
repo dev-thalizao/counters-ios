@@ -24,19 +24,17 @@ public final class CreateCounterUIComposer {
         let controller = CreateCounterViewController()
         controller.title = CreateCounterPresenter.title
         
-        let presenter = InteractorPresenter(
-            resourceView: CreateCounterViewAdapter(controller),
-            loadingView: WeakRefVirtualProxy(controller),
-            errorView: WeakRefVirtualProxy(controller)
-        )
-        
         controller.onFinish = onFinish
-        controller.onSelect = { [counterCreator, presenter] name in
+        controller.onSelect = { [counterCreator] controller, name in
             let adapter = CreatePresentationAdapter(loader: { completion in
                 counterCreator.create(.init(id: idGenerator(), title: name), completion: completion)
             })
             
-            adapter.presenter = presenter
+            adapter.presenter = InteractorPresenter(
+                resourceView: CreateCounterViewAdapter(controller),
+                loadingView: WeakRefVirtualProxy(controller),
+                errorView: WeakRefVirtualProxy(controller)
+            )
             
             adapter.load()
         }
