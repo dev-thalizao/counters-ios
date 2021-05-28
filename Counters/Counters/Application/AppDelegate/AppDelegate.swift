@@ -120,10 +120,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let createVC = CreateCounterUIComposer.createComposedWith(
             idGenerator: idGenerator,
             counterCreator: counterCreator,
-            onFinish: { [navigationController] in
-                $0.dismiss(animated: true) {
-                    navigationController.topViewController?.viewWillAppear(true)
-                }
+            onFinish: { controller in
+                controller.dismiss(animated: true)
             },
             onSeeExamples: { controller, input in
                 let exampleVC = ExampleCountersUIComposer.examplesComposedWith { [input] controller, selected in
@@ -173,7 +171,7 @@ extension AppDelegate: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         guard let counterViewController = viewController as? CountersViewController else { return }
         
-        if !UserDefaults.standard.userShouldOnboard() {
+        if UserDefaults.standard.userShouldOnboard() {
             let welcomeVC = WelcomeCountersUIComposer.welcomeComposedWith {
                 $0.dismiss(animated: true) {
                     UserDefaults.standard.userDidOnboard()

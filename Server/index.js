@@ -25,6 +25,7 @@ app.get("/api/v1/counters", function(req, res) {
 // =>   {id: "qwer", title: "bob",   count: 0}
 // => ]
 app.post("/api/v1/counter", function(req, res) {
+  console.log(req.body);
   res.json(counters.create(req.body.title));
 })
 
@@ -34,6 +35,7 @@ app.post("/api/v1/counter", function(req, res) {
 // =>   {id: "qwer", title: "bob",   count: 0}
 // => ]
 app.delete("/api/v1/counter", function(req, res) {
+  console.log(req.body);
   res.json(counters.delete(req.body.id));
 });
 
@@ -52,6 +54,7 @@ app.post("/api/v1/counter/inc", function(req, res) {
 // =>   {id: "qwer", title: "bob",   count: 1}
 // => ]
 app.post("/api/v1/counter/dec", function(req, res) {
+  console.log(req.body);
   res.json(counters.dec(req.body.id));
 });
 
