@@ -107,8 +107,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let presenter = WelcomeViewPresenter()
 //        window.rootViewController = WelcomeViewController(presenter: presenter)
         
-//        window.rootViewController = PrototypeComposer.prototype()
-        window.rootViewController = navigationController
+        window.rootViewController = UINavigationController(
+            rootViewController: ExampleCountersUIComposer.examplesComposedWith(onSelect: { _ in })
+        )
+//        window.rootViewController = navigationController
         window.tintColor = UIColor(named: "AccentColor")!
         
         self.window = window

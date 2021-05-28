@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ShadowRoundedLayer: CALayer {
+public final class ShadowRoundedLayer: CALayer {
     
     private(set) lazy var shapeLayer = CAShapeLayer()
     
@@ -20,7 +20,7 @@ final class ShadowRoundedLayer: CALayer {
         return contentLayer
     }()
     
-    override init() {
+    public override init() {
         super.init()
         addSublayer(shadowLayer)
         addSublayer(shapeLayer)
@@ -28,7 +28,7 @@ final class ShadowRoundedLayer: CALayer {
     
     required init?(coder: NSCoder) { nil }
     
-    func draw(using view: UIView) {
+    public func draw(using view: UIView) {
         let bounds = view.bounds
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: Layout.Shape.radius)
     

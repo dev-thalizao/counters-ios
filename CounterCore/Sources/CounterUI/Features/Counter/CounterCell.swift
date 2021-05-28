@@ -28,6 +28,8 @@ public final class CounterCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
     
+    // MARK: - Public Methods
+    
     public func configure(with viewModel: CounterViewModel) {
         counterView.configure(with: viewModel)
     }

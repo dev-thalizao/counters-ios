@@ -29,6 +29,7 @@ final class CreateCounterView: UIView {
         let textField = PaddingTextField(padding: Layout.TextField.padding)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Cups of coffee"
+        textField.font = Layout.TextField.font
         textField.borderStyle = .none
         textField.addTarget(self, action: #selector(textDidChanged(_:)), for: .editingChanged)
         return textField
@@ -67,6 +68,8 @@ final class CreateCounterView: UIView {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
+    
+    // MARK: - Lifecycle Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -126,11 +129,10 @@ extension CreateCounterView: ViewConfiguration {
     
     func setupViews() {
         backgroundColor = Layout.Root.color
-
     }
 }
 
-extension CreateCounterView {
+private extension CreateCounterView {
     
     enum Layout {
         
@@ -143,6 +145,7 @@ extension CreateCounterView {
             static let left = CGFloat(12)
             static let right = CGFloat(-12)
             static let padding = UIEdgeInsets(top: 17, left: 17, bottom: 18, right: 54)
+            static let font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         }
         
         enum ActivityIndicator {
