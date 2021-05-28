@@ -98,15 +98,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.view.backgroundColor = .systemBackground
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.isToolbarHidden = false
+        navigationController.delegate = self
         return navigationController
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         let window = UIWindow()
-//        let presenter = WelcomeViewPresenter()
-//        window.rootViewController = WelcomeViewController(presenter: presenter)
-        
         window.rootViewController = navigationController
         window.tintColor = UIColor(named: "AccentColor")!
         
@@ -168,5 +165,22 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             ShareCountersUIComposer.shareComposedWith(counters),
             animated: true
         )
+    }
+}
+
+extension AppDelegate: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        guard let counterViewController = viewController as? CountersViewController else { return }
+        
+        if !UserDefaults.standard.userShouldOnboard() {
+            let welcomeVC = WelcomeCountersUIComposer.welcomeComposedWith {
+                $0.dismiss(animated: true) {
+                    UserDefaults.standard.userDidOnboard()
+                }
+            }
+            
+            counterViewController.present(welcomeVC, animated: true)
+        }
     }
 }

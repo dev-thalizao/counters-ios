@@ -31,6 +31,8 @@
 		2B136F71266054F50051BE7C /* ExampleCountersCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F70266054F50051BE7C /* ExampleCountersCellController.swift */; };
 		2B136F76266055390051BE7C /* ExampleCounterHintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F75266055390051BE7C /* ExampleCounterHintView.swift */; };
 		2B136F7C266074E90051BE7C /* ExampleCounterSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B136F7B266074E90051BE7C /* ExampleCounterSectionView.swift */; };
+		2B24867926608D1E0060F121 /* WelcomeCountersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24867826608D1E0060F121 /* WelcomeCountersUIComposer.swift */; };
+		2B24867E26608DA40060F121 /* UserDefaults+Onboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B24867D26608DA40060F121 /* UserDefaults+Onboard.swift */; };
 		350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6D825E02D5E0000F698 /* WelcomeView.swift */; };
 		350AF6E425E035840000F698 /* WelcomeFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6E325E035840000F698 /* WelcomeFeatureView.swift */; };
 		350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */; };
@@ -82,6 +84,8 @@
 		2B136F70266054F50051BE7C /* ExampleCountersCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCountersCellController.swift; sourceTree = "<group>"; };
 		2B136F75266055390051BE7C /* ExampleCounterHintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterHintView.swift; sourceTree = "<group>"; };
 		2B136F7B266074E90051BE7C /* ExampleCounterSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCounterSectionView.swift; sourceTree = "<group>"; };
+		2B24867826608D1E0060F121 /* WelcomeCountersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCountersUIComposer.swift; sourceTree = "<group>"; };
+		2B24867D26608DA40060F121 /* UserDefaults+Onboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Onboard.swift"; sourceTree = "<group>"; };
 		350AF6D825E02D5E0000F698 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		350AF6E325E035840000F698 /* WelcomeFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeFeatureView.swift; sourceTree = "<group>"; };
 		350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Badge.swift"; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				2B136EFC265EC54C0051BE7C /* LoadCountersUIComposer.swift */,
 				2B136F01265EC60E0051BE7C /* CreateCounterUIComposer.swift */,
 				2B136F4D266053B30051BE7C /* ExampleCountersUIComposer.swift */,
+				2B24867826608D1E0060F121 /* WelcomeCountersUIComposer.swift */,
 			);
 			path = Composers;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				350AF6EC25E0365A0000F698 /* UIImage+Badge.swift */,
+				2B24867D26608DA40060F121 /* UserDefaults+Onboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -467,6 +473,7 @@
 				2B136EFD265EC54C0051BE7C /* LoadCountersUIComposer.swift in Sources */,
 				350AF6ED25E0365A0000F698 /* UIImage+Badge.swift in Sources */,
 				2B136F54266053ED0051BE7C /* ExampleCountersPresenter.swift in Sources */,
+				2B24867E26608DA40060F121 /* UserDefaults+Onboard.swift in Sources */,
 				2B136EE7265EC2140051BE7C /* EraseCountersUIComposer.swift in Sources */,
 				2B136F71266054F50051BE7C /* ExampleCountersCellController.swift in Sources */,
 				DECA257025CC8D4200851431 /* WelcomeViewController.swift in Sources */,
@@ -480,6 +487,7 @@
 				2B136F7C266074E90051BE7C /* ExampleCounterSectionView.swift in Sources */,
 				350AF6D925E02D5E0000F698 /* WelcomeView.swift in Sources */,
 				2B136F40266044B10051BE7C /* ExampleCountersViewController.swift in Sources */,
+				2B24867926608D1E0060F121 /* WelcomeCountersUIComposer.swift in Sources */,
 				2B136F2426601E0E0051BE7C /* FallbackCounterLoaderDecorator.swift in Sources */,
 				2B136F4E266053B30051BE7C /* ExampleCountersUIComposer.swift in Sources */,
 				2B136EF0265EC4950051BE7C /* WeakRefVirtualProxy.swift in Sources */,

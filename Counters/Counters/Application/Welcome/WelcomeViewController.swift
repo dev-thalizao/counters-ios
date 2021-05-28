@@ -10,10 +10,14 @@ protocol WelcomeViewControllerPresenter {
     var viewModel: WelcomeView.ViewModel { get }
 }
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
+    typealias OnFinish = (WelcomeViewController) -> Void
+    
     private lazy var innerView = WelcomeView()
     
     private let presenter: WelcomeViewControllerPresenter
+    
+    var onFinish: OnFinish?
     
     init(presenter: WelcomeViewControllerPresenter) {
         self.presenter = presenter
@@ -33,6 +37,10 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         additionalSafeAreaInsets = Constants.additionalInsets
         innerView.configure(with: presenter.viewModel)
+        innerView.onTap = { [weak self] in
+            guard let self = self else { return }
+            self.onFinish?(self)
+        }
     }
 }
 
